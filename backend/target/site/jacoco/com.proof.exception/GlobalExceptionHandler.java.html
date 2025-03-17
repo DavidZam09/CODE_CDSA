@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.exception</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.proof.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Clase GlobalExceptionHandler que maneja las excepciones de la aplicación
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@RestControllerAdvice
+<span class="nc" id="L19">public class GlobalExceptionHandler {</span>
+
+    /**
+     * Método que maneja la excepción RecursoNoEncontradoException
+     * 
+     * @param ex Excepción RecursoNoEncontradoException
+     * @return ResponseEntity con el mensaje de la excepción
+     */
+    @ExceptionHandler(RecursoNoEncontradoException.class)
+    public ResponseEntity&lt;String&gt; manejarRecursoNoEncontrado(RecursoNoEncontradoException ex) {
+<span class="nc" id="L29">        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());</span>
+    }
+
+    /**
+     * Método que maneja la excepción RecursoDuplicadoException
+     * 
+     * @param ex Excepción RecursoDuplicadoException
+     * @return ResponseEntity con el mensaje de la excepción
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map&lt;String, String&gt; handleValidationExceptions(MethodArgumentNotValidException ex) {
+<span class="nc" id="L41">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L42">        ex.getBindingResult().getFieldErrors()</span>
+<span class="nc" id="L43">                .forEach(error -&gt; errors.put(error.getField(), error.getDefaultMessage()));</span>
+<span class="nc" id="L44">        return errors;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

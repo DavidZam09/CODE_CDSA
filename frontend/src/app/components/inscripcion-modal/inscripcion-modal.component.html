@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{ titulo }}</h2>
+
+<mat-dialog-content>
+  <form #inscripcionForm="ngForm">
+    <!-- Select Student -->
+    <mat-form-field>
+      <mat-label>Estudiante</mat-label>
+      <mat-select [(ngModel)]="inscripcion.id_estudiante" name="id_estudiante" required>
+        <mat-option *ngFor="let estudiante of estudiantes" [value]="estudiante.id_Persona">
+          {{ estudiante.nombre }} {{ estudiante.apellido }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Select Course -->
+    <mat-form-field>
+      <mat-label>Curso</mat-label>
+      <mat-select [(ngModel)]="inscripcion.id_curso" name="id_curso" required>
+        <mat-option *ngFor="let curso of cursos" [value]="curso.id_Curso">
+          {{ curso.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Inscription Date -->
+    <mat-form-field>
+      <mat-label>Fecha de Inscripción</mat-label>
+      <input matInput type="date" [(ngModel)]="inscripcion.fecha_inscripcion" name="fecha_inscripcion" [max]="today" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cerrarModal()">Cancelar</button>
+  <button mat-button color="primary" (click)="guardarInscripcion()" [disabled]="!inscripcionForm.valid">Guardar</button>
+</mat-dialog-actions>

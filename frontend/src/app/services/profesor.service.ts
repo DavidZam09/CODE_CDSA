@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../enviroments/environment';
+import { TokenService } from './token.service';
 
 export interface Profesor {
   id_Persona: number;
@@ -15,32 +16,39 @@ export interface Profesor {
   fechaContratacion: string;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ProfesorService {
-  private apiUrl = `${environment.API_URL}/profesores`;
+  private apiUrl = `${environment.API_URL}/api/v1/profesores`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
+
+
+  private getHeaders(): HttpHeaders {
+    const token = this.tokenService.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
   obtenerProfesores(): Observable<Profesor[]> {
-    return this.http.get<Profesor[]>(this.apiUrl);
+    return this.http.get<Profesor[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
-  agregarProfesor(profesor: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, profesor);
+  agregarProfesor(profesor: Profesor): Observable<Profesor> {
+    return this.http.post<Profesor>(this.apiUrl, profesor, { headers: this.getHeaders() });
   }
 
-  ObtenerProfesorById(id: number): Observable<void> {
-    return this.http.get<void>(`${this.apiUrl}/${id}`);
+  obtenerProfesorPorId(id: number): Observable<Profesor> {
+    return this.http.get<Profesor>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
   eliminarProfesor(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
-  editarProfesor(profesor: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${profesor.id_Persona}`, profesor);
+  editarProfesor(profesor: Profesor): Observable<Profesor> {
+    return this.http.put<Profesor>(`${this.apiUrl}/${profesor.id_Persona}`, profesor, { headers: this.getHeaders() });
   }
 }

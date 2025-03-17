@@ -15,7 +15,8 @@
 
 /* 📌 Logo de Angular */
 .sidebar-logo img {
-    width: 80px; /* ✅ Ajusta el tamaño del logo */
+    width: 80px;
+    /* ✅ Ajusta el tamaño del logo */
     height: auto;
     margin-bottom: 20px;
 }
@@ -42,6 +43,23 @@
 
 .sidebar a:hover {
     background: #34495e;
+}
+
+/* 📌 Logout Button */
+.logout-button {
+    width: 100%;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 16px;
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
 }
 
 /* 📌 Responsividad */

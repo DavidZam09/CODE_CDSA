@@ -26,12 +26,6 @@ CREATE TABLE Profesor (
     fecha_contratacion DATE NOT NULL,
     FOREIGN KEY (id_persona) REFERENCES Persona(id_persona) ON DELETE CASCADE
 );
-CREATE TABLE Persona (
-    id_persona INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100),
-    apellido VARCHAR(100),
-    email VARCHAR(100) UNIQUE
-);
 
 CREATE TABLE Administrativo (
     id_persona INT PRIMARY KEY,
@@ -56,4 +50,14 @@ CREATE TABLE Inscripcion (
     fecha_inscripcion DATE,
     FOREIGN KEY (id_estudiante) REFERENCES Estudiante(id_persona) ON DELETE CASCADE,
     FOREIGN KEY (id_curso) REFERENCES Curso(id_curso) ON DELETE CASCADE
+);
+
+CREATE TABLE Users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    firstname VARCHAR(100) NOT NULL,
+    lastname VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN','USER') NOT NULL
 );

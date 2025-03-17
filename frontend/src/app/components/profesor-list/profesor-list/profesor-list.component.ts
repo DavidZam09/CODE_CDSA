@@ -34,8 +34,19 @@ export class ProfesorListComponent implements OnInit {
     });
   }
 
+  obtenerProfesores(): void {
+    this.profesorService.obtenerProfesores().subscribe({
+      next: (profesores) => {
+        this.profesores = profesores;
+      },
+      error: (err) => {
+        console.error('Error al obtener los profesores', err);
+      }
+    });
+  }
+
   editarProfesor(id: number) {
-    this.profesorService.ObtenerProfesorById(id).subscribe({
+    this.profesorService.obtenerProfesorPorId(id).subscribe({
       next: (profesor) => {
         const dialogRef = this.dialog.open(ProfesorModalComponent, {
           width: '500px',

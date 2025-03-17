@@ -5,6 +5,11 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Clase que representa a una inscripción de un estudiante a un curso
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Getter
 @Setter
 @NoArgsConstructor

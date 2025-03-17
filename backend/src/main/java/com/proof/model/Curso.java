@@ -3,6 +3,11 @@ package com.proof.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Clase que representa a un curso de la institución educativa
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Getter
 @Setter
 @NoArgsConstructor

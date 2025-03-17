@@ -14,6 +14,12 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/**
+ * Clase que representa a una persona de la institución educativa
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+// Se usa si quieres herencia en la base de datos
 @Getter
 @Setter
 @NoArgsConstructor

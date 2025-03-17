@@ -7,6 +7,11 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/**
+ * Clase que representa a un profesor de la institución educativa
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Getter
 @Setter
 @NoArgsConstructor

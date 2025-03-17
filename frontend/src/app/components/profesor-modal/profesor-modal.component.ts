@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { ProfesorService } from '../../services/profesor.service';
 
 @Component({
@@ -18,6 +20,7 @@ import { ProfesorService } from '../../services/profesor.service';
 export class ProfesorModalComponent {
   titulo: string;
   profesor = {
+    id_Persona: 0,
     type: 'profesor',
     nombre: '',
     apellido: '',
@@ -31,6 +34,8 @@ export class ProfesorModalComponent {
   constructor(
     private dialogRef: MatDialogRef<ProfesorModalComponent>,
     private profesorService: ProfesorService,
+    private snackBar: MatSnackBar,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.profesor = data.profesor ? { ...data.profesor } : {};
@@ -47,12 +52,18 @@ export class ProfesorModalComponent {
     this.profesorService.agregarProfesor(this.profesor).subscribe({
       next: (response) => {
         console.log('Profesor guardado con éxito:', response);
-        this.dialogRef.close(response);
+        this.snackBar.open('Profesor guardado con éxito', 'Cerrar', {
+          duration: 3000
+        }).afterDismissed().subscribe(() => {
+          this.dialogRef.close(response);
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/profesor']);
+          });
+        });
       },
       error: (error) => {
         console.error('Error al guardar el profesor:', error);
       }
     });
   }
-
 }

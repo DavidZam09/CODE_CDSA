@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{ titulo }}</h2>
+
+<mat-dialog-content>
+    <form #admonForm="ngForm">
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput [(ngModel)]="admon.nombre" name="nombre" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput [(ngModel)]="admon.apellido" name="apellido" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput type="date" [(ngModel)]="admon.fechaNacimiento" name="fechaNacimiento" [max]="today"
+                required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="admon.email" name="email" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input matInput type="tel" [(ngModel)]="admon.telefono" name="telefono" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Cargo</mat-label>
+            <input matInput [(ngModel)]="admon.cargo" name="cargo" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Departamento</mat-label>
+            <input matInput [(ngModel)]="admon.departamento" name="departamento" required>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cerrarModal()">Cancelar</button>
+    <button mat-button color="primary" (click)="guardaradmon()">Guardar</button>
+</mat-dialog-actions>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CursoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.controller</a> &gt; <span class="el_source">CursoController.java</span></div><h1>CursoController.java</h1><pre class="source lang-java linenums">package com.proof.controller;
+
+import com.proof.model.Curso;
+import com.proof.service.CursoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * CursoController es la clase que se encarga de manejar las peticiones HTTP
+ * relacionadas con los cursos.
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+@RestController
+@RequestMapping(&quot;/api/v1/cursos&quot;)
+<span class="nc" id="L22">public class CursoController {</span>
+
+    @Autowired
+    private CursoService cursoService;
+
+    /**
+     * Método que se encarga de listar todos los cursos
+     * 
+     * @return ResponseEntity con la lista de cursos
+     */
+    @GetMapping
+    public ResponseEntity&lt;?&gt; listarCursos() {
+<span class="nc" id="L34">        List&lt;Curso&gt; cursos = cursoService.listarCursos();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (cursos.isEmpty()) {</span>
+<span class="nc" id="L36">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvieron cursos&quot;, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="nc" id="L38">            return ResponseEntity.ok(cursos);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de obtener un curso por ID
+     *
+     * @param id ID del curso a obtener
+     * @return ResponseEntity con el curso obtenido
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; obtenerCursoPorId(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L50">        Optional&lt;Curso&gt; curso = cursoService.obtenerCursoPorId(id);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (curso.isPresent()) {</span>
+<span class="nc" id="L52">            return new ResponseEntity&lt;&gt;(curso, HttpStatus.OK);</span>
+        } else {
+<span class="nc" id="L54">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el curso&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de crear un nuevo curso
+     * 
+     * @param curso Curso a crear
+     * 
+     * @return ResponseEntity con el curso creado
+     */
+    @PostMapping
+    public ResponseEntity&lt;Curso&gt; crearCurso(@RequestBody Curso curso) {
+<span class="nc" id="L67">        Curso nuevoCurso = cursoService.guardarCurso(curso);</span>
+<span class="nc" id="L68">        return ResponseEntity.ok(nuevoCurso);</span>
+    }
+
+    /**
+     * Método que se encarga de actualizar un curso existente
+     * 
+     * @param id    ID del curso a actualizar
+     * @param curso Curso con los datos actualizados
+     * @return ResponseEntity con el curso actualizado
+     */
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Curso&gt; actualizarCurso(@PathVariable(&quot;id&quot;) Long id, @RequestBody Curso curso) {
+        try {
+<span class="nc" id="L81">            Curso cursoActualizado = cursoService.actualizarCurso(id, curso);</span>
+<span class="nc" id="L82">            return ResponseEntity.ok(cursoActualizado);</span>
+<span class="nc" id="L83">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L84">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de eliminar un curso
+     * 
+     * @param id ID del curso a eliminar
+     * @return ResponseEntity con el resultado de la operación
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; eliminarCurso(@PathVariable(&quot;id&quot;) Long id) {
+        try {
+<span class="nc" id="L97">            cursoService.eliminarCurso(id);</span>
+<span class="nc" id="L98">            return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L99">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L100">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdministrativoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.service</a> &gt; <span class="el_source">AdministrativoService.java</span></div><h1>AdministrativoService.java</h1><pre class="source lang-java linenums">package com.proof.service;
+
+import com.proof.model.Administrativo;
+import com.proof.repository.AdministrativoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Servicio de la entidad Administrativo
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@Service
+<span class="fc" id="L17">public class AdministrativoService {</span>
+
+    @Autowired
+    private AdministrativoRepository administrativoRepository;
+
+    /**
+     * Listar todos los administrativos
+     * 
+     * @return Lista de administrativos
+     */
+    public List&lt;Administrativo&gt; listarAdministrativos() {
+<span class="fc" id="L28">        return administrativoRepository.findAll();</span>
+    }
+
+    /**
+     * Obtener un administrativo por ID
+     * 
+     * @param id ID del administrativo a obtener
+     * @return Administrativo
+     */
+    public Optional&lt;Administrativo&gt; obtenerAdministrativoPorId(Long id) {
+<span class="fc" id="L38">        return administrativoRepository.findById(id);</span>
+    }
+
+    /**
+     * Guardar un administrativo
+     * 
+     * @param administrativo Administrativo a guardar
+     * @return Administrativo
+     */
+    public Administrativo guardarAdministrativo(Administrativo administrativo) {
+<span class="fc" id="L48">        return administrativoRepository.save(administrativo);</span>
+    }
+
+    /**
+     * Actualizar un administrativo
+     * 
+     * @param id                        ID del administrativo a actualizar
+     * @param administrativoActualizado Administrativo actualizado
+     * @return Administrativo
+     */
+    public Administrativo actualizarAdministrativo(Long id, Administrativo administrativoActualizado) {
+<span class="fc" id="L59">        return administrativoRepository.findById(id)</span>
+<span class="fc" id="L60">                .map(administrativo -&gt; {</span>
+<span class="fc" id="L61">                    administrativo.setCargo(administrativoActualizado.getCargo());</span>
+<span class="fc" id="L62">                    administrativo.setDepartamento(administrativoActualizado.getDepartamento());</span>
+<span class="fc" id="L63">                    return administrativoRepository.save(administrativo);</span>
+<span class="fc" id="L64">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Administrativo no encontrado con ID: &quot; + id));</span>
+    }
+
+    /**
+     * Eliminar un administrativo
+     * 
+     * @param id ID del administrativo a eliminar
+     * @throws RuntimeException
+     */
+    public void eliminarAdministrativo(Long id) {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!administrativoRepository.existsById(id)) {</span>
+<span class="fc" id="L75">            throw new RuntimeException(&quot;Administrativo no encontrado con ID: &quot; + id);</span>
+        }
+<span class="fc" id="L77">        administrativoRepository.deleteById(id);</span>
+<span class="fc" id="L78">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

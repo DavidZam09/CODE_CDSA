@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InscripcionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.controller</a> &gt; <span class="el_source">InscripcionController.java</span></div><h1>InscripcionController.java</h1><pre class="source lang-java linenums">package com.proof.controller;
+
+import com.proof.model.Inscripcion;
+import com.proof.service.InscripcionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * InscripcionController Class controlador de Inscripcion de estudiantes
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+@RestController
+@RequestMapping(&quot;/api/v1/inscripciones&quot;)
+<span class="nc" id="L21">public class InscripcionController {</span>
+
+    @Autowired
+    private InscripcionService inscripcionService;
+
+    /**
+     * Método que se encarga de listar todas las inscripciones
+     * 
+     * @return ResponseEntity con la lista de inscripciones
+     */
+    @GetMapping
+    public ResponseEntity&lt;?&gt; listarInscripciones() {
+<span class="nc" id="L33">        List&lt;Inscripcion&gt; inscripcions = inscripcionService.listarInscripciones();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (inscripcions.isEmpty()) {</span>
+<span class="nc" id="L35">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvo la inscripcion&quot;, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(inscripcions, HttpStatus.OK);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de obtener una inscripcion por ID
+     * 
+     * @param id ID de la inscripcion a obtener
+     * @return ResponseEntity con la inscripcion obtenida
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; obtenerInscripcionPorId(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L49">        Optional&lt;Inscripcion&gt; inscripcion = inscripcionService.obtenerInscripcionPorId(id);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (inscripcion.isEmpty()) {</span>
+<span class="nc" id="L51">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvo la inscripcion&quot;, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="nc" id="L53">            return new ResponseEntity&lt;&gt;(inscripcion, HttpStatus.OK);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de crear una nueva inscripcion
+     * 
+     * @param inscripcion inscripcion a guardar
+     * @return ResponseEntity con la inscripcion guardada
+     */
+    @PostMapping
+    public ResponseEntity&lt;Inscripcion&gt; crearInscripcion(@RequestBody Inscripcion inscripcion) {
+<span class="nc" id="L65">        Inscripcion nuevaInscripcion = inscripcionService.guardarInscripcion(inscripcion);</span>
+<span class="nc" id="L66">        return ResponseEntity.ok(nuevaInscripcion);</span>
+    }
+
+    /**
+     * Método que se encarga de actualizar una inscripcion existente
+     * 
+     * @param id          ID de la inscripcion a actualizar
+     * @param inscripcion inscripcion con los datos actualizados
+     * @return ResponseEntity con la inscripcion actualizada
+     */
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; actualizarInscripcion(@PathVariable(&quot;id&quot;) Long id,
+            @RequestBody Inscripcion inscripcion) {
+        try {
+<span class="nc" id="L80">            Inscripcion inscripcionActualizada = inscripcionService.actualizarInscripcion(id, inscripcion);</span>
+<span class="nc" id="L81">            return ResponseEntity.ok(inscripcionActualizada);</span>
+<span class="nc" id="L82">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L83">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de eliminar una inscripcion
+     * 
+     * @param id ID de la inscripcion a eliminar
+     * @return ResponseEntity con la respuesta de la eliminación
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; eliminarInscripcion(@PathVariable(&quot;id&quot;) Long id) {
+        try {
+<span class="nc" id="L96">            inscripcionService.eliminarInscripcion(id);</span>
+<span class="nc" id="L97">            return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L98">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L99">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -3,7 +3,7 @@ import { provideRouter, Routes } from '@angular/router';
 import { withInterceptorsFromDi, provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-// 📌 Importar módulos de Angular Material
+// Import Angular Material modules
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 
 import { AuthInterceptor } from './services/auth.interceptor';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { CursoComponent } from './pages/curso/curso.component';
+import { InscripcionComponent } from './pages/inscripcion/inscripcion.component';
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -28,10 +31,13 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'home', component: HomeComponent, canActivate: [authGuard] },
-      { path: 'student', component: StudentComponent, canActivate: [authGuard] },
-      { path: 'profesor', component: ProfesorComponent, canActivate: [authGuard] },
-      { path: 'admon', component: AdmonComponent, canActivate: [authGuard] },
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
+      { path: 'profesor', component: ProfesorComponent, canActivate: [AuthGuard] },
+      { path: 'admon', component: AdmonComponent, canActivate: [AuthGuard] },
+      { path: 'curso', component: CursoComponent, canActivate: [AuthGuard] },
+      { path: 'inscripcion', component: InscripcionComponent, canActivate: [AuthGuard] },
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
   },
   { path: '**', redirectTo: 'login' }

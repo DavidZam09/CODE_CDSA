@@ -1,0 +1,28 @@
+<div class="Admon-list">
+    <h2>Lista de Inscripciones</h2>
+    <div class="header-container">
+        <button class="btn-agregar" (click)="agregarInscripcion()">Agregar Curso</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Curso</th>
+                <th>Fecha de Inscripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let inscripcion of inscripciones">
+                <td>{{ getNombreEstudiante(inscripcion.id_estudiante) }}</td>
+                <td>{{ getNombreCurso(inscripcion.id_curso) }}</td>
+                <td>{{ inscripcion.fecha_inscripcion }}</td>
+
+                <td>
+                    <button class="btn-editar" (click)="editarInscripcion(inscripcion.id_inscripcion)">Editar</button>
+                    <button class="btn-eliminar"
+                        (click)="eliminarInscripcion(inscripcion.id_inscripcion)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

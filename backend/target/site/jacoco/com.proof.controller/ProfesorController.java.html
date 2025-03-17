@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfesorController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.controller</a> &gt; <span class="el_source">ProfesorController.java</span></div><h1>ProfesorController.java</h1><pre class="source lang-java linenums">package com.proof.controller;
+
+import com.proof.model.Profesor;
+import com.proof.service.ProfesorService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * ProfesorController Class controlador de Profesor
+ * ProfesorController es la clase que se encarga de manejar las peticiones HTTP
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@RestController
+@RequestMapping(&quot;/api/v1/profesores&quot;)
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+<span class="nc" id="L25">public class ProfesorController {</span>
+
+    @Autowired
+    private ProfesorService profesorService;
+
+    /**
+     * Método que se encarga de listar todos los profesores
+     * 
+     * @return ResponseEntity con la lista de profesores
+     */
+    @GetMapping
+    public ResponseEntity&lt;?&gt; listarProfesores() {
+<span class="nc" id="L37">        List&lt;Profesor&gt; profesores = profesorService.listarProfesores();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (profesores.isEmpty()) {</span>
+<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron profesores&quot;, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="nc" id="L41">            return new ResponseEntity&lt;&gt;(profesores, HttpStatus.OK);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de obtener un profesor por ID
+     * 
+     * @param id ID del profesor a obtener
+     * @return ResponseEntity con el profesor obtenido
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; obtenerProfesorPorId(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L53">        Optional&lt;Profesor&gt; profesor = profesorService.obtenerProfesorPorId(id);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (profesor.isEmpty()) {</span>
+<span class="nc" id="L55">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvo el profesor&quot;, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="nc" id="L57">            return ResponseEntity.ok(profesor);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de crear un nuevo profesor
+     * 
+     * @param profesor Profesor a guardar
+     * @return ResponseEntity con el profesor guardado
+     */
+    @PostMapping
+    public ResponseEntity&lt;Profesor&gt; crearProfesor(@Valid @RequestBody Profesor profesor) {
+<span class="nc" id="L69">        return ResponseEntity.ok(profesorService.guardarProfesor(profesor));</span>
+    }
+
+    /**
+     * Método que se encarga de actualizar un profesor
+     * 
+     * @param id       ID del profesor a actualizar
+     * @param profesor Profesor a actualizar
+     * @return Profesor actualizado
+     */
+    @PutMapping(&quot;/{id}&quot;)
+    public Profesor actualizarProfesor(@PathVariable(&quot;id&quot;) Long id, @Valid @RequestBody Profesor profesor) {
+<span class="nc" id="L81">        return profesorService.actualizarProfesor(id, profesor);</span>
+    }
+
+    /**
+     * Método que se encarga de eliminar un profesor
+     * 
+     * @param id ID del profesor a eliminar
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminarProfesor(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L92">        profesorService.eliminarProfesor(id);</span>
+<span class="nc" id="L93">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

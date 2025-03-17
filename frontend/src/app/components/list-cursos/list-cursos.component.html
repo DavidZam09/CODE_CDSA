@@ -1,0 +1,38 @@
+<div class="Admon-list">
+    <h2>Listado de Cursos</h2>
+
+    <div class="header-container">
+        <button class="btn-agregar" (click)="agregarcurso()">Agregar Curso</button>
+    </div>
+
+    <table *ngIf="curso.length > 0; else noData">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Creditos</th>
+                <th>Profesor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cu of curso">
+                <td>{{ cu.id_curso }}</td>
+                <td>{{ cu.nombre }}</td>
+                <td>{{ cu.descripcion }}</td>
+                <td>{{ cu.creditos }}</td>
+                <td>{{ getNombreProfesor(cu.idProfesor) }}</td>
+
+                <td>
+                    <button class="btn-editar" (click)="editarcurso(cu.id_curso)">Editar</button>
+                    <button class="btn-eliminar" (click)="eliminarcurso(cu.id_curso)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noData>
+        <p>No hay Admones registrados.</p>
+    </ng-template>
+</div>

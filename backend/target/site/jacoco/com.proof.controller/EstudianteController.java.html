@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EstudianteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.controller</a> &gt; <span class="el_source">EstudianteController.java</span></div><h1>EstudianteController.java</h1><pre class="source lang-java linenums">package com.proof.controller;
+
+import com.proof.model.Estudiante;
+import com.proof.service.EstudianteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * EstudianteController class contienen los métodos para gestionar los
+ * estudiantes
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+
+@RestController
+@RequestMapping(&quot;/api/v1/estudiantes&quot;)
+@CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+<span class="nc" id="L23">public class EstudianteController {</span>
+
+    @Autowired
+    private EstudianteService estudianteService;
+
+    /**
+     * Método que se encarga de listar todos los estudiantes
+     * 
+     * @return ResponseEntity con la lista de estudiantes
+     */
+    @GetMapping
+    public ResponseEntity&lt;?&gt; listarEstudiantes() {
+<span class="nc" id="L35">        List&lt;Estudiante&gt; estudiantes = estudianteService.listarEstudiantes();</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (estudiantes.isEmpty()) {</span>
+<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron estudiantes&quot;, HttpStatus.NOT_FOUND);</span>
+        } else {
+<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(estudiantes, HttpStatus.OK);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de obtener un estudiante por ID
+     * 
+     * @param id ID del estudiante a obtener
+     * @return ResponseEntity con el estudiante obtenido
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; obtenerEstudiantePorId(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L51">        Optional&lt;Estudiante&gt; estudiante = estudianteService.obtenerEstudiantePorId(id);</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (estudiante.isPresent()) {</span>
+<span class="nc" id="L53">            return new ResponseEntity&lt;&gt;(estudiante, HttpStatus.OK);</span>
+        } else {
+<span class="nc" id="L55">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el estudiante&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de guardar un nuevo estudiante
+     * 
+     * @param estudiante Estudiante a guardar
+     * @return ResponseEntity con el estudiante guardado
+     */
+    @PostMapping
+    public ResponseEntity&lt;Estudiante&gt; guardarEstudiante(@RequestBody Estudiante estudiante) {
+<span class="nc" id="L67">        Estudiante savedEstudiante = estudianteService.guardarEstudiante(estudiante);</span>
+<span class="nc" id="L68">        return new ResponseEntity&lt;&gt;(savedEstudiante, HttpStatus.CREATED);</span>
+    }
+
+    /**
+     * Método que se encarga de actualizar un estudiante existente
+     * 
+     * @param id         ID del estudiante a actualizar
+     * @param estudiante Estudiante con los datos actualizados
+     * @return ResponseEntity con el estudiante actualizado
+     */
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; actualizarEstudiante(@PathVariable(&quot;id&quot;) Long id,
+            @RequestBody Estudiante estudiante) {
+<span class="nc" id="L81">        Estudiante updatedEstudiante = estudianteService.actualizarEstudiante(id, estudiante);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (updatedEstudiante != null) {</span>
+<span class="nc" id="L83">            return new ResponseEntity&lt;&gt;(updatedEstudiante, HttpStatus.OK);</span>
+        } else {
+<span class="nc" id="L85">            return new ResponseEntity&lt;&gt;(&quot;No se encontro al estudiante&quot;, HttpStatus.NOT_FOUND);</span>
+        }
+    }
+
+    /**
+     * Método que se encarga de eliminar un estudiante
+     * 
+     * @param id ID del estudiante a eliminar
+     * @return ResponseEntity con el resultado de la eliminación
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; eliminarEstudiante(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L97">        boolean isRemoved = estudianteService.eliminarEstudiante(id);</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (isRemoved) {</span>
+<span class="nc" id="L99">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+        } else {
+<span class="nc" id="L101">            return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

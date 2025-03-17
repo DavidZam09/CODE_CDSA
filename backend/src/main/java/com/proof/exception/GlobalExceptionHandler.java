@@ -10,14 +10,31 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase GlobalExceptionHandler que maneja las excepciones de la aplicación
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Método que maneja la excepción RecursoNoEncontradoException
+     * 
+     * @param ex Excepción RecursoNoEncontradoException
+     * @return ResponseEntity con el mensaje de la excepción
+     */
     @ExceptionHandler(RecursoNoEncontradoException.class)
     public ResponseEntity<String> manejarRecursoNoEncontrado(RecursoNoEncontradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
+    /**
+     * Método que maneja la excepción RecursoDuplicadoException
+     * 
+     * @param ex Excepción RecursoDuplicadoException
+     * @return ResponseEntity con el mensaje de la excepción
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

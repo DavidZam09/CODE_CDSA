@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+/**
+ * Clase que representa a un estudiante de la institución educativa
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Getter
 @Setter
 @NoArgsConstructor

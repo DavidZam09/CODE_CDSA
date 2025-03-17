@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * ProfesorController Class controlador de Profesor
+ * ProfesorController es la clase que se encarga de manejar las peticiones HTTP
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @RestController
 @RequestMapping("/api/v1/profesores")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -21,31 +27,65 @@ public class ProfesorController {
     @Autowired
     private ProfesorService profesorService;
 
-    // Listar todos los profesores
+    /**
+     * Método que se encarga de listar todos los profesores
+     * 
+     * @return ResponseEntity con la lista de profesores
+     */
     @GetMapping
-    public List<Profesor> listarProfesores() {
-        return profesorService.listarProfesores();
+    public ResponseEntity<?> listarProfesores() {
+        List<Profesor> profesores = profesorService.listarProfesores();
+        if (profesores.isEmpty()) {
+            return new ResponseEntity<>("No se encontraron profesores", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(profesores, HttpStatus.OK);
+        }
     }
 
-    // Obtener un profesor por ID
+    /**
+     * Método que se encarga de obtener un profesor por ID
+     * 
+     * @param id ID del profesor a obtener
+     * @return ResponseEntity con el profesor obtenido
+     */
     @GetMapping("/{id}")
-    public Optional<Profesor> obtenerProfesorPorId(@PathVariable("id") Long id) {
-        return profesorService.obtenerProfesorPorId(id);
+    public ResponseEntity<?> obtenerProfesorPorId(@PathVariable("id") Long id) {
+        Optional<Profesor> profesor = profesorService.obtenerProfesorPorId(id);
+        if (profesor.isEmpty()) {
+            return new ResponseEntity<>("No se obtuvo el profesor", HttpStatus.NOT_FOUND);
+        } else {
+            return ResponseEntity.ok(profesor);
+        }
     }
 
-    // Agregar un nuevo profesor
+    /**
+     * Método que se encarga de crear un nuevo profesor
+     * 
+     * @param profesor Profesor a guardar
+     * @return ResponseEntity con el profesor guardado
+     */
     @PostMapping
     public ResponseEntity<Profesor> crearProfesor(@Valid @RequestBody Profesor profesor) {
         return ResponseEntity.ok(profesorService.guardarProfesor(profesor));
     }
 
-    // Actualizar un profesor existente
+    /**
+     * Método que se encarga de actualizar un profesor
+     * 
+     * @param id       ID del profesor a actualizar
+     * @param profesor Profesor a actualizar
+     * @return Profesor actualizado
+     */
     @PutMapping("/{id}")
     public Profesor actualizarProfesor(@PathVariable("id") Long id, @Valid @RequestBody Profesor profesor) {
         return profesorService.actualizarProfesor(id, profesor);
     }
 
-    // Eliminar un profesor
+    /**
+     * Método que se encarga de eliminar un profesor
+     * 
+     * @param id ID del profesor a eliminar
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarProfesor(@PathVariable("id") Long id) {

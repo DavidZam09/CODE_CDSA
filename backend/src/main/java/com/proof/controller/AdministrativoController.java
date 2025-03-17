@@ -3,12 +3,20 @@ package com.proof.controller;
 import com.proof.model.Administrativo;
 import com.proof.service.AdministrativoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Clase controlador de Administrativo AdministrativoController
+ * Clase que se encarga de manejar las peticiones HTTP relacionadas con los
+ * administrativos
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/administrativos")
@@ -17,28 +25,56 @@ public class AdministrativoController {
     @Autowired
     private AdministrativoService administrativoService;
 
-    // Obtener todos los administrativos
+    /**
+     * Método que se encarga de listar todos los administrativos
+     * 
+     * @return ResponseEntity con la lista de administrativos
+     */
     @GetMapping
-    public List<Administrativo> listarAdministrativos() {
-        return administrativoService.listarAdministrativos();
+    public ResponseEntity<?> listarAdministrativos() {
+        List<Administrativo> administrativos = administrativoService.listarAdministrativos();
+        if (administrativos.isEmpty()) {
+            return new ResponseEntity<>("No se encontraron administrativos", HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(administrativos, HttpStatus.OK);
+        }
     }
 
-    // Obtener un administrativo por ID
+    /**
+     * Método que se encarga de obtener un administrativo por ID
+     * 
+     * @param id ID del administrativo a obtener
+     * @return ResponseEntity con el administrativo obtenido
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<Administrativo> obtenerAdministrativoPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<?> obtenerAdministrativoPorId(@PathVariable("id") Long id) {
         Optional<Administrativo> administrativo = administrativoService.obtenerAdministrativoPorId(id);
-        return administrativo.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (administrativo.isPresent()) {
+            return new ResponseEntity<>(administrativo, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No se encontró el administrativo", HttpStatus.NOT_FOUND);
+        }
     }
 
-    // Crear un nuevo administrativo
+    /**
+     * Método que se encarga de crear un nuevo administrativo
+     * 
+     * @param administrativo administrativo a guardar
+     * @return ResponseEntity con el administrativo guardado
+     */
     @PostMapping
     public ResponseEntity<Administrativo> crearAdministrativo(@RequestBody Administrativo administrativo) {
         Administrativo nuevoAdministrativo = administrativoService.guardarAdministrativo(administrativo);
         return ResponseEntity.ok(nuevoAdministrativo);
     }
 
-    // Actualizar un administrativo existente
+    /**
+     * Método que se encarga de actualizar un administrativo existente
+     * 
+     * @param id             ID del administrativo a actualizar
+     * @param administrativo administrativo con los datos actualizados
+     * @return ResponseEntity con el administrativo actualizado
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Administrativo> actualizarAdministrativo(@PathVariable("id") Long id,
             @RequestBody Administrativo administrativo) {
@@ -51,7 +87,12 @@ public class AdministrativoController {
         }
     }
 
-    // Eliminar un administrativo
+    /**
+     * Método que se encarga de eliminar un administrativo
+     * 
+     * @param id ID del administrativo a eliminar
+     * @return ResponseEntity con el administrativo eliminado
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarAdministrativo(@PathVariable("id") Long id) {
         try {

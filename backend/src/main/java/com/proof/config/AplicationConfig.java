@@ -13,17 +13,35 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.proof.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase de configuración de la aplicación que define los beans necesarios
+ * para la autenticación de usuarios.
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Configuration
 @RequiredArgsConstructor
 public class AplicationConfig {
 
     private final UserRepository userRepository;
 
+    /**
+     * Método que crea un bean de tipo AuthenticationManager.
+     * 
+     * @param config Configuración de autenticación.
+     * @return AuthenticationManager.
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
+    /**
+     * Método que crea un bean de tipo AuthenticationProvider.
+     * 
+     * @return AuthenticationProvider.
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -32,11 +50,21 @@ public class AplicationConfig {
         return authenticationProvider;
     }
 
+    /**
+     * Método que crea un bean de tipo PasswordEncoder.
+     * 
+     * @return PasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Método que crea un bean de tipo UserDetailsService.
+     * 
+     * @return UserDetailsService.
+     */
     @Bean
     public UserDetailsService userDetailService() {
         return username -> userRepository.findByUsername(username)

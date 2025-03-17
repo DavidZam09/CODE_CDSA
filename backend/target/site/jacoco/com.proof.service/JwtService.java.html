@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.service</a> &gt; <span class="el_source">JwtService.java</span></div><h1>JwtService.java</h1><pre class="source lang-java linenums">package com.proof.service;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+
+/**
+ * Servicio de JWT (Json Web Token)
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@Service
+<span class="nc" id="L23">public class JwtService {</span>
+
+    private static final String SECRET_KEY = &quot;586E3272357538782F413F4428472B4B6250655368566B597033733676397924&quot;;
+
+    /**
+     * Método para generar un token JWT
+     * 
+     * @param user
+     * @return
+     */
+    public String getToken(UserDetails user) {
+<span class="nc" id="L34">        return getToken(new HashMap&lt;&gt;(), user);</span>
+    }
+
+    /**
+     * Método para generar un token JWT
+     * 
+     * @param extraClaims
+     * @param user
+     * @return
+     */
+    private String getToken(Map&lt;String, Object&gt; extraClaims, UserDetails user) {
+<span class="nc" id="L45">        return Jwts</span>
+<span class="nc" id="L46">                .builder()</span>
+<span class="nc" id="L47">                .setClaims(extraClaims)</span>
+<span class="nc" id="L48">                .setSubject(user.getUsername())</span>
+<span class="nc" id="L49">                .setIssuedAt(new Date(System.currentTimeMillis()))</span>
+<span class="nc" id="L50">                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))</span>
+<span class="nc" id="L51">                .signWith(getKey(), SignatureAlgorithm.HS256)</span>
+<span class="nc" id="L52">                .compact();</span>
+    }
+
+    /**
+     * Método para obtener la clave secreta
+     * 
+     * @return Clave secreta
+     */
+    private Key getKey() {
+<span class="nc" id="L61">        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);</span>
+<span class="nc" id="L62">        return Keys.hmacShaKeyFor(keyBytes);</span>
+    }
+
+    /**
+     * Método para obtener el nombre de usuario desde el token
+     * 
+     * @param token
+     * @return Nombre de usuario
+     */
+    public String getUsernameFromToken(String token) {
+<span class="nc" id="L72">        return getClaim(token, Claims::getSubject);</span>
+    }
+
+    /**
+     * Método para verificar si el token es válido
+     * 
+     * @param token
+     * @param userDetails
+     * @return true si el token es válido, false en caso contrario
+     */
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+<span class="nc" id="L83">        final String username = getUsernameFromToken(token);</span>
+<span class="nc bnc" id="L84" title="All 4 branches missed.">        return (username.equals(userDetails.getUsername()) &amp;&amp; !isTokenExpired(token));</span>
+    }
+
+    /**
+     * Método para obtener todas las reclamaciones del token
+     * 
+     * @param token
+     * @return Claims
+     */
+    private Claims getAllClaims(String token) {
+<span class="nc" id="L94">        return Jwts</span>
+<span class="nc" id="L95">                .parserBuilder()</span>
+<span class="nc" id="L96">                .setSigningKey(getKey())</span>
+<span class="nc" id="L97">                .build()</span>
+<span class="nc" id="L98">                .parseClaimsJws(token)</span>
+<span class="nc" id="L99">                .getBody();</span>
+    }
+
+    /**
+     * Método para obtener una reclamación específica del token
+     * 
+     * @param token
+     * @param claimsResolver
+     * @return Claim específica
+     */
+    public &lt;T&gt; T getClaim(String token, Function&lt;Claims, T&gt; claimsResolver) {
+<span class="nc" id="L110">        final Claims claims = getAllClaims(token);</span>
+<span class="nc" id="L111">        return claimsResolver.apply(claims);</span>
+    }
+
+    /**
+     * Método para obtener la fecha de expiración del token
+     * 
+     * @param token
+     * @return Fecha de expiración del token
+     */
+    private Date getExpiration(String token) {
+<span class="nc" id="L121">        return getClaim(token, Claims::getExpiration);</span>
+    }
+
+    /**
+     * Método para verificar si el token ha expirado
+     * 
+     * @param token
+     * @return true si el token ha expirado, false en caso contrario
+     */
+    private boolean isTokenExpired(String token) {
+<span class="nc" id="L131">        return getExpiration(token).before(new Date());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

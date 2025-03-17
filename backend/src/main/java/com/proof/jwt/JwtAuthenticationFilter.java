@@ -19,6 +19,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * JwtAuthenticationFilter Class que maneja la autenticación de los usuarios
+ * mediante el token JWT.
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -26,6 +32,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
+    /**
+     * Método que maneja la autenticación de los usuarios mediante el token JWT.
+     * 
+     * @param request     Solicitud HTTP.
+     * @param response    Respuesta HTTP.
+     * @param filterChain Cadena de filtros.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -59,6 +74,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Método que obtiene el token de autenticación de la solicitud HTTP.
+     * 
+     * @param request Solicitud HTTP.
+     * @return Token de autenticación.
+     */
     private String getTokenFromRequest(HttpServletRequest request) {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 

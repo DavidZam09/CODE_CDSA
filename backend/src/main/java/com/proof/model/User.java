@@ -21,6 +21,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que representa a un usuario del sistema
+ * 
+ * @autor David Orlando Velez Zamora
+ */
 @Data
 @Builder
 @NoArgsConstructor

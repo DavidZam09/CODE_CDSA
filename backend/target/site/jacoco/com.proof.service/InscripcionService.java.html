@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InscripcionService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">com.proof.service</a> &gt; <span class="el_source">InscripcionService.java</span></div><h1>InscripcionService.java</h1><pre class="source lang-java linenums">package com.proof.service;
+
+import com.proof.model.Inscripcion;
+import com.proof.repository.InscripcionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Servicio de la entidad Inscripcion
+ * 
+ * @autor David Orlando Velez Zamora
+ */
+@Service
+<span class="fc" id="L17">public class InscripcionService {</span>
+
+    @Autowired
+    private InscripcionRepository inscripcionRepository;
+
+    /**
+     * Listar todas las inscripciones
+     * 
+     * @return Lista de inscripciones
+     */
+    public List&lt;Inscripcion&gt; listarInscripciones() {
+<span class="fc" id="L28">        return inscripcionRepository.findAll();</span>
+    }
+
+    /**
+     * Obtener una inscripción por ID
+     * 
+     * @param id ID de la inscripción a obtener
+     * @return Inscripción
+     */
+    public Optional&lt;Inscripcion&gt; obtenerInscripcionPorId(Long id) {
+<span class="fc" id="L38">        return inscripcionRepository.findById(id);</span>
+    }
+
+    /**
+     * Guardar una inscripción
+     * 
+     * @param inscripcion Inscripción a guardar
+     * @return Inscripción
+     */
+    public Inscripcion guardarInscripcion(Inscripcion inscripcion) {
+<span class="fc" id="L48">        return inscripcionRepository.save(inscripcion);</span>
+    }
+
+    /**
+     * Actualizar una inscripción
+     * 
+     * @param id                     ID de la inscripción a actualizar
+     * @param inscripcionActualizada Inscripción actualizada
+     * @return Inscripción
+     */
+    public Inscripcion actualizarInscripcion(Long id, Inscripcion inscripcionActualizada) {
+<span class="fc" id="L59">        return inscripcionRepository.findById(id)</span>
+<span class="fc" id="L60">                .map(inscripcion -&gt; {</span>
+<span class="fc" id="L61">                    inscripcion.setId_estudiante(inscripcionActualizada.getId_estudiante());</span>
+<span class="fc" id="L62">                    inscripcion.setId_curso(inscripcionActualizada.getId_curso());</span>
+<span class="fc" id="L63">                    inscripcion.setFecha_inscripcion(inscripcionActualizada.getFecha_inscripcion());</span>
+<span class="fc" id="L64">                    return inscripcionRepository.save(inscripcion);</span>
+<span class="fc" id="L65">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Inscripción no encontrada con ID: &quot; + id));</span>
+    }
+
+    /**
+     * Eliminar una inscripción
+     * 
+     * @param id ID de la inscripción a eliminar
+     */
+    public void eliminarInscripcion(Long id) {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!inscripcionRepository.existsById(id)) {</span>
+<span class="fc" id="L75">            throw new RuntimeException(&quot;Inscripción no encontrada con ID: &quot; + id);</span>
+        }
+<span class="fc" id="L77">        inscripcionRepository.deleteById(id);</span>
+<span class="fc" id="L78">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
