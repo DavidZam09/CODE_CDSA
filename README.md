@@ -125,7 +125,9 @@ cd CODE_CDSA
 - **Angular** (Framework de desarrollo frontend)
 - **Angular Material** (Componentes de UI)
 - **TypeScript** (Lenguaje de programación)
-
+  
+## Diagrama de Base de datos:
+![database_schema_v2](https://github.com/user-attachments/assets/0adc4839-3a18-41c5-a4ef-2e224954d2db)
 ---
 
 ## Notas Adicionales
@@ -136,3 +138,4 @@ cd CODE_CDSA
 ---
 
 Con esta guía, deberías poder clonar, configurar y ejecutar el proyecto sin problemas. ¡Buena suerte! 🚀
+
