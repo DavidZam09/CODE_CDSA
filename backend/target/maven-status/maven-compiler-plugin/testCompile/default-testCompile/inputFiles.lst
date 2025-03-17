@@ -1,6 +1,7 @@
-D:\backend\src\test\java\com\proof\AppTest.java
-D:\backend\src\test\java\com\proof\controller\InscripcionControllerTest.java
-D:\backend\src\test\java\com\proof\service\EstudianteServiceTest.java
-D:\backend\src\test\java\com\proof\service\InscripcionServiceTest.java
-D:\backend\src\test\java\com\proof\service\PersonaServiceTest.java
-D:\backend\src\test\java\com\proof\service\ProfesorServiceTest.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\controller\InscripcionControllerTest.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\AppTest.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\service\AuthService.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\service\ProfesorServiceTest.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\service\InscripcionServiceTest.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\service\EstudianteServiceTest.java
+D:\PROOF CODESA\backend\src\test\java\com\proof\service\PersonaServiceTest.java

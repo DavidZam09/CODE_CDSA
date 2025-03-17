@@ -21,6 +21,13 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.1</version>  <!-- O la última disponible -->
+    <relativePath />
+  </parent>
+
   <dependencies>
     <!-- Spring Boot Web -->
     <dependency>
@@ -90,6 +97,12 @@
       <version>4.0.2</version>
     </dependency>
 
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+
     <!-- MySQL Connector -->
     <dependency>
       <groupId>mysql</groupId>
@@ -113,12 +126,43 @@
       <version>${modelmapper.version}</version>
     </dependency>
 
-    <!-- Spring Boot Logging -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>0.11.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.11.5</version>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
-      <version>${spring-boot.version}</version>
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <version>3.2.1</version>
     </dependency>
+
+    <!-- Spring Boot Security -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/inscripciones")
+@RequestMapping("/api/v1/inscripciones")
 public class InscripcionController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class InscripcionController {
 
     // Obtener una inscripción por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Inscripcion> obtenerInscripcionPorId(@PathVariable Long id) {
+    public ResponseEntity<Inscripcion> obtenerInscripcionPorId(@PathVariable("id") Long id) {
         Optional<Inscripcion> inscripcion = inscripcionService.obtenerInscripcionPorId(id);
         return inscripcion.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -39,7 +40,7 @@ public class InscripcionController {
 
     // Actualizar una inscripción existente
     @PutMapping("/{id}")
-    public ResponseEntity<Inscripcion> actualizarInscripcion(@PathVariable Long id,
+    public ResponseEntity<Inscripcion> actualizarInscripcion(@PathVariable("id") Long id,
             @RequestBody Inscripcion inscripcion) {
         try {
             Inscripcion inscripcionActualizada = inscripcionService.actualizarInscripcion(id, inscripcion);
@@ -51,7 +52,7 @@ public class InscripcionController {
 
     // Eliminar una inscripción
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarInscripcion(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarInscripcion(@PathVariable("id") Long id) {
         try {
             inscripcionService.eliminarInscripcion(id);
             return ResponseEntity.noContent().build();

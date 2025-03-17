@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/personas")
+@RequestMapping("/api/v1/personas")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PersonaController {
 
     @Autowired
@@ -23,7 +24,7 @@ public class PersonaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Persona> obtenerPersonaPorId(@PathVariable Long id) {
+    public ResponseEntity<Persona> obtenerPersonaPorId(@PathVariable("id") Long id) {
         Optional<Persona> persona = personaService.obtenerPersonaPorId(id);
         return persona.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -35,7 +36,8 @@ public class PersonaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Persona> actualizarPersona(@PathVariable Long id, @Valid @RequestBody Persona personaActualizada) {
+    public ResponseEntity<Persona> actualizarPersona(@PathVariable("id") Long id,
+            @Valid @RequestBody Persona personaActualizada) {
         try {
             Persona persona = personaService.actualizarPersona(id, personaActualizada);
             return ResponseEntity.ok(persona);
@@ -45,7 +47,7 @@ public class PersonaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarPersona(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarPersona(@PathVariable("id") Long id) {
         personaService.eliminarPersona(id);
         return ResponseEntity.noContent().build();
     }

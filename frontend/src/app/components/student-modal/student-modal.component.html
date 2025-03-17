@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{ titulo }}</h2>
+
+<mat-dialog-content>
+    <form #studentForm="ngForm">
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput [(ngModel)]="student.nombre" name="nombre" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput [(ngModel)]="student.apellido" name="apellido" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput type="date" [(ngModel)]="student.fechaNacimiento" name="fechaNacimiento" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="student.email" name="email" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input matInput type="tel" [(ngModel)]="student.telefono" name="telefono" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Numero Matricula</mat-label>
+            <input matInput [(ngModel)]="student.numeroMatricula" name="numeroMatricula" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Grado</mat-label>
+            <input matInput [(ngModel)]="student.grado" name="grado" required>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cerrarModal()">Cancelar</button>
+    <button mat-button color="primary" (click)="guardarStudent()">Guardar</button>
+</mat-dialog-actions>

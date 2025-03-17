@@ -1,9 +1,11 @@
 <div class="container">
-    <app-sidebar>
-        <div class="sidebar-logo">
-            <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular Logo">
-        </div>
-    </app-sidebar>
+    <div *ngIf="!isAuthPage()">
+        <app-sidebar>
+            <div class="sidebar-logo">
+                <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular Logo">
+            </div>
+        </app-sidebar>
+    </div>
     <div class="content">
         <app-toolbar></app-toolbar>
         <div class="page-content">

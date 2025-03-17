@@ -14,7 +14,7 @@ public class Inscripcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_inscripcion; // ✅ Se eliminó el guion bajo para seguir la convención de Java
+    private Long id_inscripcion;
 
     @Column(nullable = false)
     private Long id_estudiante;

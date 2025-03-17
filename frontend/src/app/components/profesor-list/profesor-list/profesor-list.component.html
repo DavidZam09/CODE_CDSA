@@ -1,0 +1,37 @@
+<div class="profesor-list">
+    <h2>Listado de Profesores</h2>
+
+    <div class="header-container">
+        <button class="btn-agregar" (click)="agregarProfesor()">Agregar Profesor</button>
+    </div>
+
+    <table *ngIf="profesores.length > 0; else noData">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Especialidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let profesor of profesores">
+                <td>{{ profesor.id_Persona }}</td>
+                <td>{{ profesor.nombre }}</td>
+                <td>{{ profesor.apellido }}</td>
+                <td>{{ profesor.email }}</td>
+                <td>{{ profesor.especialidad }}</td>
+                <td>
+                    <button class="btn-editar" (click)="editarProfesor(profesor.id_Persona)">Editar</button>
+                    <button class="btn-eliminar" (click)="eliminarProfesor(profesor.id_Persona)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noData>
+        <p>No hay profesores registrados.</p>
+    </ng-template>
+</div>

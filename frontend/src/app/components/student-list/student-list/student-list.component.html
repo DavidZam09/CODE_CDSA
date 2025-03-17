@@ -1,0 +1,39 @@
+<div class="student-list">
+    <h2>Listado de Estudiantes</h2>
+
+    <div class="header-container">
+        <button class="btn-agregar" (click)="agregarStudent()">Agregar Estudiante</button>
+    </div>
+
+    <table *ngIf="students.length > 0; else noData">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Numero Matricula</th>
+                <th>grado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students">
+                <td>{{ student.id_Persona }}</td>
+                <td>{{ student.nombre }}</td>
+                <td>{{ student.apellido }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.numeroMatricula }}</td>
+                <td>{{ student.grado }}</td>
+                <td>
+                    <button class="btn-editar" (click)="editarStudent(student.id_Persona)">Editar</button>
+                    <button class="btn-eliminar" (click)="eliminarStudent(student.id_Persona)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ng-template #noData>
+        <p>No hay studentes registrados.</p>
+    </ng-template>
+</div>

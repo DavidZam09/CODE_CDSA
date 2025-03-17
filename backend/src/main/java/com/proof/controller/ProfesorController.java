@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/profesores")
+@RequestMapping("/api/v1/profesores")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProfesorController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class ProfesorController {
 
     // Obtener un profesor por ID
     @GetMapping("/{id}")
-    public Optional<Profesor> obtenerProfesorPorId(@PathVariable Long id) {
+    public Optional<Profesor> obtenerProfesorPorId(@PathVariable("id") Long id) {
         return profesorService.obtenerProfesorPorId(id);
     }
 
@@ -40,14 +41,14 @@ public class ProfesorController {
 
     // Actualizar un profesor existente
     @PutMapping("/{id}")
-    public Profesor actualizarProfesor(@PathVariable Long id, @Valid @RequestBody Profesor profesor) {
+    public Profesor actualizarProfesor(@PathVariable("id") Long id, @Valid @RequestBody Profesor profesor) {
         return profesorService.actualizarProfesor(id, profesor);
     }
 
     // Eliminar un profesor
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void eliminarProfesor(@PathVariable Long id) {
+    public void eliminarProfesor(@PathVariable("id") Long id) {
         profesorService.eliminarProfesor(id);
     }
 }

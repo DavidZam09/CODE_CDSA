@@ -1,6 +1,6 @@
-com\proof\service\EstudianteServiceTest.class
 com\proof\service\InscripcionServiceTest.class
 com\proof\AppTest.class
 com\proof\service\PersonaServiceTest.class
 com\proof\service\ProfesorServiceTest.class
 com\proof\controller\InscripcionControllerTest.class
+com\proof\service\AuthService.class

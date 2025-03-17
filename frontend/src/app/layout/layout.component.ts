@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../slidebar/slidebar.component';
 import { ToolbarComponent } from '../components/toolbar/toolbar.component';
+
 
 
 @Component({
@@ -13,5 +14,9 @@ import { ToolbarComponent } from '../components/toolbar/toolbar.component';
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
+  constructor(private router: Router) { }
 
+  isAuthPage(): boolean {
+    return this.router.url.includes('/login') || this.router.url.includes('/register');
+  }
 }

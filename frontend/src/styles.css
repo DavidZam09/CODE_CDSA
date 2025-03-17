@@ -3,3 +3,5 @@
     --primary-color: #2c3e50;
     /* Cambia este valor si prefieres otro color */
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

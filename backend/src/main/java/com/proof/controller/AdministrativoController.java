@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/administrativos")
+@RequestMapping("/api/v1/administrativos")
 public class AdministrativoController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class AdministrativoController {
 
     // Obtener un administrativo por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Administrativo> obtenerAdministrativoPorId(@PathVariable Long id) {
+    public ResponseEntity<Administrativo> obtenerAdministrativoPorId(@PathVariable("id") Long id) {
         Optional<Administrativo> administrativo = administrativoService.obtenerAdministrativoPorId(id);
         return administrativo.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -39,7 +40,7 @@ public class AdministrativoController {
 
     // Actualizar un administrativo existente
     @PutMapping("/{id}")
-    public ResponseEntity<Administrativo> actualizarAdministrativo(@PathVariable Long id,
+    public ResponseEntity<Administrativo> actualizarAdministrativo(@PathVariable("id") Long id,
             @RequestBody Administrativo administrativo) {
         try {
             Administrativo administrativoActualizado = administrativoService.actualizarAdministrativo(id,
@@ -52,7 +53,7 @@ public class AdministrativoController {
 
     // Eliminar un administrativo
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarAdministrativo(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarAdministrativo(@PathVariable("id") Long id) {
         try {
             administrativoService.eliminarAdministrativo(id);
             return ResponseEntity.noContent().build();

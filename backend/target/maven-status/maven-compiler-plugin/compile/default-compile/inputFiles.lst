@@ -1,27 +1,39 @@
-D:\backend\src\main\java\com\proof\App.java
-D:\backend\src\main\java\com\proof\controller\AdministrativoController.java
-D:\backend\src\main\java\com\proof\controller\CursoController.java
-D:\backend\src\main\java\com\proof\controller\EstudianteController.java
-D:\backend\src\main\java\com\proof\controller\InscripcionController.java
-D:\backend\src\main\java\com\proof\controller\PersonaController.java
-D:\backend\src\main\java\com\proof\controller\ProfesorController.java
-D:\backend\src\main\java\com\proof\exception\GlobalExceptionHandler.java
-D:\backend\src\main\java\com\proof\exception\RecursoNoEncontradoException.java
-D:\backend\src\main\java\com\proof\model\Administrativo.java
-D:\backend\src\main\java\com\proof\model\Curso.java
-D:\backend\src\main\java\com\proof\model\Estudiante.java
-D:\backend\src\main\java\com\proof\model\Inscripcion.java
-D:\backend\src\main\java\com\proof\model\Persona.java
-D:\backend\src\main\java\com\proof\model\Profesor.java
-D:\backend\src\main\java\com\proof\repository\AdministrativoRepository.java
-D:\backend\src\main\java\com\proof\repository\CursoRepository.java
-D:\backend\src\main\java\com\proof\repository\EstudianteRepository.java
-D:\backend\src\main\java\com\proof\repository\InscripcionRepository.java
-D:\backend\src\main\java\com\proof\repository\PersonaRepository.java
-D:\backend\src\main\java\com\proof\repository\ProfesorRepository.java
-D:\backend\src\main\java\com\proof\service\AdministrativoService.java
-D:\backend\src\main\java\com\proof\service\CursoService.java
-D:\backend\src\main\java\com\proof\service\EstudianteService.java
-D:\backend\src\main\java\com\proof\service\InscripcionService.java
-D:\backend\src\main\java\com\proof\service\PersonaService.java
-D:\backend\src\main\java\com\proof\service\ProfesorService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\App.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Curso.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\dto\AuthResponse.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Inscripcion.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Role.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\AdministrativoRepository.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\InscripcionRepository.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\PersonaController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\config\SecurityConfig.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\PersonaRepository.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\AdministrativoService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\CursoController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\jwt\JwtAuthenticationFilter.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\EstudianteService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\InscripcionService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\InscripcionController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Persona.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\exception\GlobalExceptionHandler.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Administrativo.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\exception\RecursoNoEncontradoException.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\User.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\ProfesorService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\ProfesorRepository.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\ProfesorController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\AdministrativoController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Estudiante.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\model\Profesor.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\JwtService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\AuthService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\dto\LoginRequest.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\config\AplicationConfig.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\UserRepository.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\dto\RegisterRequest.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\AuthController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\CursoRepository.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\PersonaService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\controller\EstudianteController.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\service\CursoService.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\repository\EstudianteRepository.java
