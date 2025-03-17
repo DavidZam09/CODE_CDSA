@@ -119,7 +119,7 @@ cd CODE_CDSA
 ### Backend:
 - **Java** (Spring Boot)
 - **Maven** (Gestor de dependencias)
-- **MySQL** (Base de datos relacional)
+- **H2** (Base de datos relacional)
 
 ### Frontend:
 - **Angular** (Framework de desarrollo frontend)
