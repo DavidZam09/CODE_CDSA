@@ -1,4 +1,4 @@
-# Proyecto de Gestión Académica
+# Proyecto de Registro Escolar
 
 Este proyecto es una aplicación de gestión académica que permite administrar estudiantes, profesores, cursos e inscripciones. Está dividido en dos partes principales: el **backend** (API REST) y el **frontend** (interfaz de usuario).
 
@@ -29,8 +29,8 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu
 Clona el repositorio desde GitHub:
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+git clone https://github.com/DavidZam09/CODE_CDSA.git
+cd CODE_CDSA
 ```
 
 ---
@@ -43,6 +43,7 @@ cd tu-repositorio
    ```
 
 2. **Configurar la base de datos**:
+   Ya que el proyecto solo se probo con H2, no se requiere la configuracion de MySQL, sin embargo aqui dejo las instrucciones:
    - Crea una base de datos en MySQL llamada `gestion_academica` (o el nombre que prefieras).
    - Actualiza el archivo de configuración `application.properties` ubicado en `src/main/resources/` con tus credenciales de MySQL:
      ```properties
@@ -52,13 +53,13 @@ cd tu-repositorio
      spring.jpa.hibernate.ddl-auto=update
      ```
 
-3. **Compilar el proyecto**:
+4. **Compilar el proyecto**:
    Ejecuta el siguiente comando para compilar el backend:
    ```bash
    mvn clean install
    ```
 
-4. **Ejecutar el backend**:
+5. **Ejecutar el backend**:
    Inicia el servidor backend con:
    ```bash
    mvn spring-boot:run
