@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +18,9 @@ import java.util.Map;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;Global Exception Handler&quot;, description = &quot;Manejador global de excepciones de la aplicación&quot;)
 @RestControllerAdvice
-<span class="nc" id="L19">public class GlobalExceptionHandler {</span>
+<span class="nc" id="L23">public class GlobalExceptionHandler {</span>
 
     /**
      * Método que maneja la excepción RecursoNoEncontradoException
@@ -24,9 +28,10 @@ import java.util.Map;
      * @param ex Excepción RecursoNoEncontradoException
      * @return ResponseEntity con el mensaje de la excepción
      */
+    @Operation(summary = &quot;Manejar RecursoNoEncontradoException&quot;, description = &quot;Maneja excepciones cuando un recurso no es encontrado&quot;)
     @ExceptionHandler(RecursoNoEncontradoException.class)
     public ResponseEntity&lt;String&gt; manejarRecursoNoEncontrado(RecursoNoEncontradoException ex) {
-<span class="nc" id="L29">        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());</span>
+<span class="nc" id="L34">        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());</span>
     }
 
     /**
@@ -35,13 +40,14 @@ import java.util.Map;
      * @param ex Excepción RecursoDuplicadoException
      * @return ResponseEntity con el mensaje de la excepción
      */
+    @Operation(summary = &quot;Manejar MethodArgumentNotValidException&quot;, description = &quot;Maneja excepciones de validación de argumentos&quot;)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map&lt;String, String&gt; handleValidationExceptions(MethodArgumentNotValidException ex) {
-<span class="nc" id="L41">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L42">        ex.getBindingResult().getFieldErrors()</span>
-<span class="nc" id="L43">                .forEach(error -&gt; errors.put(error.getField(), error.getDefaultMessage()));</span>
-<span class="nc" id="L44">        return errors;</span>
+<span class="nc" id="L47">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L48">        ex.getBindingResult().getFieldErrors()</span>
+<span class="nc" id="L49">                .forEach(error -&gt; errors.put(error.getField(), error.getDefaultMessage()));</span>
+<span class="nc" id="L50">        return errors;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

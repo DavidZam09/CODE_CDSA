@@ -67,6 +67,44 @@ cd CODE_CDSA
 
    El backend estará disponible en: [http://localhost:8080](http://localhost:8080)
 
+6. **Agregar Swagger para Documentación**:
+   Swagger se utiliza para documentar la API REST del backend. Sigue estos pasos para configurarlo:
+
+   - Agrega la dependencia de Swagger en el archivo `pom.xml`:
+     ```xml
+     <dependency>
+         <groupId>io.springfox</groupId>
+         <artifactId>springfox-boot-starter</artifactId>
+         <version>3.0.0</version>
+     </dependency>
+     ```
+
+   - Configura Swagger en el proyecto creando una clase de configuración en `src/main/java/com/proof/config/SwaggerConfig.java`:
+     ```java
+     package com.proof.config;
+
+     import org.springframework.context.annotation.Bean;
+     import org.springframework.context.annotation.Configuration;
+     import springfox.documentation.builders.PathSelectors;
+     import springfox.documentation.builders.RequestHandlerSelectors;
+     import springfox.documentation.spi.DocumentationType;
+     import springfox.documentation.spring.web.plugins.Docket;
+
+     @Configuration
+     public class SwaggerConfig {
+         @Bean
+         public Docket api() {
+             return new Docket(DocumentationType.OAS_30)
+                     .select()
+                     .apis(RequestHandlerSelectors.basePackage("com.proof"))
+                     .paths(PathSelectors.any())
+                     .build();
+         }
+     }
+     ```
+
+   - Una vez configurado, la documentación de la API estará disponible en: [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/).
+
 ---
 
 ## Configuración del Frontend

@@ -3,6 +3,7 @@
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Clase que representa a un administrativo de la institución educativa
@@ -10,18 +11,21 @@ import lombok.*;
  * @autor David Orlando Velez Zamora
  */
 @Getter
-<span class="fc" id="L13">@Setter</span>
-<span class="fc" id="L14">@NoArgsConstructor</span>
-<span class="nc" id="L15">@AllArgsConstructor</span>
+<span class="fc" id="L14">@Setter</span>
+<span class="fc" id="L15">@NoArgsConstructor</span>
+<span class="nc" id="L16">@AllArgsConstructor</span>
 @Entity
 @Table(name = &quot;administrativo&quot;)
 @PrimaryKeyJoinColumn(name = &quot;id_persona&quot;)
+@Schema(description = &quot;Clase que representa a un administrativo de la institución educativa&quot;)
 public class Administrativo extends Persona {
 
+    @Schema(description = &quot;Cargo del administrativo&quot;, example = &quot;Coordinador&quot;)
     @NotBlank(message = &quot;El cargo no puede estar vacío&quot;)
-<span class="fc" id="L22">    private String cargo;</span>
+<span class="fc" id="L25">    private String cargo;</span>
 
+    @Schema(description = &quot;Departamento al que pertenece el administrativo&quot;, example = &quot;Recursos Humanos&quot;)
     @NotBlank(message = &quot;El departamento no puede estar vacío&quot;)
-<span class="fc" id="L25">    private String departamento;</span>
+<span class="fc" id="L29">    private String departamento;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

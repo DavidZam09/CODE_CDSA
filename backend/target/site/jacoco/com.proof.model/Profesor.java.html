@@ -3,9 +3,12 @@
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 
 import java.time.LocalDate;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Clase que representa a un profesor de la institución educativa
@@ -13,18 +16,22 @@ import java.time.LocalDate;
  * @autor David Orlando Velez Zamora
  */
 @Getter
-<span class="fc" id="L16">@Setter</span>
-<span class="fc" id="L17">@NoArgsConstructor</span>
-<span class="nc" id="L18">@AllArgsConstructor</span>
+<span class="fc" id="L19">@Setter</span>
+<span class="fc" id="L20">@NoArgsConstructor</span>
+<span class="nc" id="L21">@AllArgsConstructor</span>
 @Entity
 @Table(name = &quot;profesor&quot;)
 @PrimaryKeyJoinColumn(name = &quot;id_persona&quot;)
+@Schema(description = &quot;Clase que representa a un profesor de la institución educativa&quot;)
 public class Profesor extends Persona {
 
     @NotBlank(message = &quot;La especialidad no puede estar vacía&quot;)
-<span class="fc" id="L25">    private String especialidad;</span>
+    @Schema(description = &quot;Especialidad del profesor&quot;, example = &quot;Matemáticas&quot;)
+<span class="fc" id="L30">    private String especialidad;</span>
 
     @NotNull(message = &quot;La fecha de contratación no puede ser nula&quot;)
-<span class="fc" id="L28">    private LocalDate fechaContratacion;</span>
+    @PastOrPresent(message = &quot;La fecha de contratación no puede ser una fecha futura&quot;)
+    @Schema(description = &quot;Fecha de contratación del profesor&quot;, example = &quot;2021-10-01&quot;)
+<span class="fc" id="L35">    private LocalDate fechaContratacion;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -2,6 +2,11 @@
 
 import com.proof.model.Administrativo;
 import com.proof.repository.AdministrativoRepository;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +19,8 @@ import java.util.Optional;
  * @autor David Orlando Velez Zamora
  */
 @Service
-<span class="fc" id="L17">public class AdministrativoService {</span>
+@Tag(name = &quot;Administrativo Service&quot;, description = &quot;Operaciones relacionadas con la entidad Administrativo&quot;)
+<span class="fc" id="L23">public class AdministrativoService {</span>
 
     @Autowired
     private AdministrativoRepository administrativoRepository;
@@ -24,8 +30,9 @@ import java.util.Optional;
      * 
      * @return Lista de administrativos
      */
+    @Operation(summary = &quot;Listar todos los administrativos&quot;, description = &quot;Obtiene una lista de todos los administrativos&quot;)
     public List&lt;Administrativo&gt; listarAdministrativos() {
-<span class="fc" id="L28">        return administrativoRepository.findAll();</span>
+<span class="fc" id="L35">        return administrativoRepository.findAll();</span>
     }
 
     /**
@@ -34,8 +41,9 @@ import java.util.Optional;
      * @param id ID del administrativo a obtener
      * @return Administrativo
      */
+    @Operation(summary = &quot;Obtener un administrativo por ID&quot;, description = &quot;Obtiene un administrativo específico por su ID&quot;)
     public Optional&lt;Administrativo&gt; obtenerAdministrativoPorId(Long id) {
-<span class="fc" id="L38">        return administrativoRepository.findById(id);</span>
+<span class="fc" id="L46">        return administrativoRepository.findById(id);</span>
     }
 
     /**
@@ -44,8 +52,9 @@ import java.util.Optional;
      * @param administrativo Administrativo a guardar
      * @return Administrativo
      */
-    public Administrativo guardarAdministrativo(Administrativo administrativo) {
-<span class="fc" id="L48">        return administrativoRepository.save(administrativo);</span>
+    @Operation(summary = &quot;Guardar un administrativo&quot;, description = &quot;Guarda un nuevo administrativo en la base de datos&quot;)
+    public Administrativo guardarAdministrativo(@RequestBody(description = &quot;Datos del administrativo a guardar&quot;) Administrativo administrativo) {
+<span class="fc" id="L57">        return administrativoRepository.save(administrativo);</span>
     }
 
     /**
@@ -55,13 +64,14 @@ import java.util.Optional;
      * @param administrativoActualizado Administrativo actualizado
      * @return Administrativo
      */
-    public Administrativo actualizarAdministrativo(Long id, Administrativo administrativoActualizado) {
-<span class="fc" id="L59">        return administrativoRepository.findById(id)</span>
-<span class="fc" id="L60">                .map(administrativo -&gt; {</span>
-<span class="fc" id="L61">                    administrativo.setCargo(administrativoActualizado.getCargo());</span>
-<span class="fc" id="L62">                    administrativo.setDepartamento(administrativoActualizado.getDepartamento());</span>
-<span class="fc" id="L63">                    return administrativoRepository.save(administrativo);</span>
-<span class="fc" id="L64">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Administrativo no encontrado con ID: &quot; + id));</span>
+    @Operation(summary = &quot;Actualizar un administrativo&quot;, description = &quot;Actualiza los datos de un administrativo existente&quot;)
+    public Administrativo actualizarAdministrativo(Long id, @RequestBody(description = &quot;Datos actualizados del administrativo&quot;) Administrativo administrativoActualizado) {
+<span class="fc" id="L69">        return administrativoRepository.findById(id)</span>
+<span class="fc" id="L70">                .map(administrativo -&gt; {</span>
+<span class="fc" id="L71">                    administrativo.setCargo(administrativoActualizado.getCargo());</span>
+<span class="fc" id="L72">                    administrativo.setDepartamento(administrativoActualizado.getDepartamento());</span>
+<span class="fc" id="L73">                    return administrativoRepository.save(administrativo);</span>
+<span class="fc" id="L74">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Administrativo no encontrado con ID: &quot; + id));</span>
     }
 
     /**
@@ -70,11 +80,12 @@ import java.util.Optional;
      * @param id ID del administrativo a eliminar
      * @throws RuntimeException
      */
+    @Operation(summary = &quot;Eliminar un administrativo&quot;, description = &quot;Elimina un administrativo existente por su ID&quot;)
     public void eliminarAdministrativo(Long id) {
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!administrativoRepository.existsById(id)) {</span>
-<span class="fc" id="L75">            throw new RuntimeException(&quot;Administrativo no encontrado con ID: &quot; + id);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (!administrativoRepository.existsById(id)) {</span>
+<span class="fc" id="L86">            throw new RuntimeException(&quot;Administrativo no encontrado con ID: &quot; + id);</span>
         }
-<span class="fc" id="L77">        administrativoRepository.deleteById(id);</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L88">        administrativoRepository.deleteById(id);</span>
+<span class="fc" id="L89">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

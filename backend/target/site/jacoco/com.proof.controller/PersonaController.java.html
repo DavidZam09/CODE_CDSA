@@ -2,6 +2,8 @@
 
 import com.proof.model.Persona;
 import com.proof.service.PersonaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,11 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;Personas&quot;, description = &quot;API para la gestión de personas&quot;)
 @RestController
 @RequestMapping(&quot;/api/v1/personas&quot;)
 @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
-<span class="nc" id="L22">public class PersonaController {</span>
+<span class="nc" id="L25">public class PersonaController {</span>
 
     @Autowired
     private PersonaService personaService;
@@ -29,9 +32,10 @@ import java.util.Optional;
      * 
      * @return ResponseEntity con la lista de personas
      */
+    @Operation(summary = &quot;Listar todas las personas&quot;, description = &quot;Obtiene una lista de todas las personas registradas&quot;)
     @GetMapping
     public List&lt;Persona&gt; listarPersonas() {
-<span class="nc" id="L34">        return personaService.listarPersonas();</span>
+<span class="nc" id="L38">        return personaService.listarPersonas();</span>
     }
 
     /**
@@ -40,11 +44,12 @@ import java.util.Optional;
      * @param id ID de la persona a obtener
      * @return ResponseEntity con la persona obtenida
      */
+    @Operation(summary = &quot;Obtener persona por ID&quot;, description = &quot;Obtiene una persona específica mediante su ID&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Persona&gt; obtenerPersonaPorId(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L45">        Optional&lt;Persona&gt; persona = personaService.obtenerPersonaPorId(id);</span>
-<span class="nc" id="L46">        return persona.map(ResponseEntity::ok)</span>
-<span class="nc" id="L47">                .orElseGet(() -&gt; ResponseEntity.notFound().build());</span>
+<span class="nc" id="L50">        Optional&lt;Persona&gt; persona = personaService.obtenerPersonaPorId(id);</span>
+<span class="nc" id="L51">        return persona.map(ResponseEntity::ok)</span>
+<span class="nc" id="L52">                .orElseGet(() -&gt; ResponseEntity.notFound().build());</span>
     }
 
     /**
@@ -53,9 +58,10 @@ import java.util.Optional;
      * @param persona persona a guardar
      * @return ResponseEntity con la persona guardada
      */
+    @Operation(summary = &quot;Crear nueva persona&quot;, description = &quot;Guarda una nueva persona en el sistema&quot;)
     @PostMapping
     public ResponseEntity&lt;Persona&gt; crearPersona(@Valid @RequestBody Persona persona) {
-<span class="nc" id="L58">        return ResponseEntity.ok(personaService.guardarPersona(persona));</span>
+<span class="nc" id="L64">        return ResponseEntity.ok(personaService.guardarPersona(persona));</span>
     }
 
     /**
@@ -65,14 +71,15 @@ import java.util.Optional;
      * @param personaActualizada
      * @return ResponseEntity con la persona actualizada
      */
+    @Operation(summary = &quot;Actualizar persona&quot;, description = &quot;Actualiza los datos de una persona existente&quot;)
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Persona&gt; actualizarPersona(@PathVariable(&quot;id&quot;) Long id,
             @Valid @RequestBody Persona personaActualizada) {
         try {
-<span class="nc" id="L72">            Persona persona = personaService.actualizarPersona(id, personaActualizada);</span>
-<span class="nc" id="L73">            return ResponseEntity.ok(persona);</span>
-<span class="nc" id="L74">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L75">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L79">            Persona persona = personaService.actualizarPersona(id, personaActualizada);</span>
+<span class="nc" id="L80">            return ResponseEntity.ok(persona);</span>
+<span class="nc" id="L81">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L82">            return ResponseEntity.notFound().build();</span>
         }
     }
 
@@ -82,10 +89,11 @@ import java.util.Optional;
      * @param id ID de la persona a eliminar
      * @return ResponseEntity con la persona eliminada
      */
+    @Operation(summary = &quot;Eliminar persona&quot;, description = &quot;Elimina una persona del sistema mediante su ID&quot;)
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; eliminarPersona(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L87">        personaService.eliminarPersona(id);</span>
-<span class="nc" id="L88">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L95">        personaService.eliminarPersona(id);</span>
+<span class="nc" id="L96">        return ResponseEntity.noContent().build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

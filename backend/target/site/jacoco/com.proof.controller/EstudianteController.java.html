@@ -2,6 +2,8 @@
 
 import com.proof.model.Estudiante;
 import com.proof.service.EstudianteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +19,11 @@ import java.util.Optional;
  * @autor David Orlando Velez Zamora
  */
 
+@Tag(name = &quot;Estudiantes&quot;, description = &quot;API para la gestión de estudiantes&quot;)
 @RestController
 @RequestMapping(&quot;/api/v1/estudiantes&quot;)
 @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
-<span class="nc" id="L23">public class EstudianteController {</span>
+<span class="nc" id="L26">public class EstudianteController {</span>
 
     @Autowired
     private EstudianteService estudianteService;
@@ -30,13 +33,14 @@ import java.util.Optional;
      * 
      * @return ResponseEntity con la lista de estudiantes
      */
+    @Operation(summary = &quot;Listar todos los estudiantes&quot;, description = &quot;Obtiene una lista de todos los estudiantes registrados&quot;)
     @GetMapping
     public ResponseEntity&lt;?&gt; listarEstudiantes() {
-<span class="nc" id="L35">        List&lt;Estudiante&gt; estudiantes = estudianteService.listarEstudiantes();</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (estudiantes.isEmpty()) {</span>
-<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron estudiantes&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L39">        List&lt;Estudiante&gt; estudiantes = estudianteService.listarEstudiantes();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (estudiantes.isEmpty()) {</span>
+<span class="nc" id="L41">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron estudiantes&quot;, HttpStatus.NOT_FOUND);</span>
         } else {
-<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(estudiantes, HttpStatus.OK);</span>
+<span class="nc" id="L43">            return new ResponseEntity&lt;&gt;(estudiantes, HttpStatus.OK);</span>
         }
     }
 
@@ -46,13 +50,14 @@ import java.util.Optional;
      * @param id ID del estudiante a obtener
      * @return ResponseEntity con el estudiante obtenido
      */
+    @Operation(summary = &quot;Obtener un estudiante por ID&quot;, description = &quot;Obtiene un estudiante específico mediante su ID&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; obtenerEstudiantePorId(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L51">        Optional&lt;Estudiante&gt; estudiante = estudianteService.obtenerEstudiantePorId(id);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (estudiante.isPresent()) {</span>
-<span class="nc" id="L53">            return new ResponseEntity&lt;&gt;(estudiante, HttpStatus.OK);</span>
+<span class="nc" id="L56">        Optional&lt;Estudiante&gt; estudiante = estudianteService.obtenerEstudiantePorId(id);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (estudiante.isPresent()) {</span>
+<span class="nc" id="L58">            return new ResponseEntity&lt;&gt;(estudiante, HttpStatus.OK);</span>
         } else {
-<span class="nc" id="L55">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el estudiante&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L60">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el estudiante&quot;, HttpStatus.NOT_FOUND);</span>
         }
     }
 
@@ -62,10 +67,11 @@ import java.util.Optional;
      * @param estudiante Estudiante a guardar
      * @return ResponseEntity con el estudiante guardado
      */
+    @Operation(summary = &quot;Guardar un nuevo estudiante&quot;, description = &quot;Crea un nuevo estudiante con los datos proporcionados&quot;)
     @PostMapping
     public ResponseEntity&lt;Estudiante&gt; guardarEstudiante(@RequestBody Estudiante estudiante) {
-<span class="nc" id="L67">        Estudiante savedEstudiante = estudianteService.guardarEstudiante(estudiante);</span>
-<span class="nc" id="L68">        return new ResponseEntity&lt;&gt;(savedEstudiante, HttpStatus.CREATED);</span>
+<span class="nc" id="L73">        Estudiante savedEstudiante = estudianteService.guardarEstudiante(estudiante);</span>
+<span class="nc" id="L74">        return new ResponseEntity&lt;&gt;(savedEstudiante, HttpStatus.CREATED);</span>
     }
 
     /**
@@ -75,14 +81,15 @@ import java.util.Optional;
      * @param estudiante Estudiante con los datos actualizados
      * @return ResponseEntity con el estudiante actualizado
      */
+    @Operation(summary = &quot;Actualizar un estudiante existente&quot;, description = &quot;Actualiza los datos de un estudiante existente mediante su ID&quot;)
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; actualizarEstudiante(@PathVariable(&quot;id&quot;) Long id,
             @RequestBody Estudiante estudiante) {
-<span class="nc" id="L81">        Estudiante updatedEstudiante = estudianteService.actualizarEstudiante(id, estudiante);</span>
-<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (updatedEstudiante != null) {</span>
-<span class="nc" id="L83">            return new ResponseEntity&lt;&gt;(updatedEstudiante, HttpStatus.OK);</span>
+<span class="nc" id="L88">        Estudiante updatedEstudiante = estudianteService.actualizarEstudiante(id, estudiante);</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (updatedEstudiante != null) {</span>
+<span class="nc" id="L90">            return new ResponseEntity&lt;&gt;(updatedEstudiante, HttpStatus.OK);</span>
         } else {
-<span class="nc" id="L85">            return new ResponseEntity&lt;&gt;(&quot;No se encontro al estudiante&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L92">            return new ResponseEntity&lt;&gt;(&quot;No se encontro al estudiante&quot;, HttpStatus.NOT_FOUND);</span>
         }
     }
 
@@ -92,13 +99,14 @@ import java.util.Optional;
      * @param id ID del estudiante a eliminar
      * @return ResponseEntity con el resultado de la eliminación
      */
+    @Operation(summary = &quot;Eliminar un estudiante&quot;, description = &quot;Elimina un estudiante específico mediante su ID&quot;)
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; eliminarEstudiante(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L97">        boolean isRemoved = estudianteService.eliminarEstudiante(id);</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (isRemoved) {</span>
-<span class="nc" id="L99">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L105">        boolean isRemoved = estudianteService.eliminarEstudiante(id);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (isRemoved) {</span>
+<span class="nc" id="L107">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
         } else {
-<span class="nc" id="L101">            return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L109">            return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
         }
     }
 }

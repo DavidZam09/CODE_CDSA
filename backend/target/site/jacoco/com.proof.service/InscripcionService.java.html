@@ -2,6 +2,8 @@
 
 import com.proof.model.Inscripcion;
 import com.proof.repository.InscripcionRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,9 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;InscripcionService&quot;, description = &quot;Servicio para la gestión de inscripciones&quot;)
 @Service
-<span class="fc" id="L17">public class InscripcionService {</span>
+<span class="fc" id="L20">public class InscripcionService {</span>
 
     @Autowired
     private InscripcionRepository inscripcionRepository;
@@ -24,8 +27,9 @@ import java.util.Optional;
      * 
      * @return Lista de inscripciones
      */
+    @Operation(summary = &quot;Listar inscripciones&quot;, description = &quot;Obtiene una lista de todas las inscripciones&quot;)
     public List&lt;Inscripcion&gt; listarInscripciones() {
-<span class="fc" id="L28">        return inscripcionRepository.findAll();</span>
+<span class="fc" id="L32">        return inscripcionRepository.findAll();</span>
     }
 
     /**
@@ -34,8 +38,9 @@ import java.util.Optional;
      * @param id ID de la inscripción a obtener
      * @return Inscripción
      */
+    @Operation(summary = &quot;Obtener inscripción por ID&quot;, description = &quot;Obtiene una inscripción específica por su ID&quot;)
     public Optional&lt;Inscripcion&gt; obtenerInscripcionPorId(Long id) {
-<span class="fc" id="L38">        return inscripcionRepository.findById(id);</span>
+<span class="fc" id="L43">        return inscripcionRepository.findById(id);</span>
     }
 
     /**
@@ -44,8 +49,9 @@ import java.util.Optional;
      * @param inscripcion Inscripción a guardar
      * @return Inscripción
      */
+    @Operation(summary = &quot;Guardar inscripción&quot;, description = &quot;Guarda una nueva inscripción en la base de datos&quot;)
     public Inscripcion guardarInscripcion(Inscripcion inscripcion) {
-<span class="fc" id="L48">        return inscripcionRepository.save(inscripcion);</span>
+<span class="fc" id="L54">        return inscripcionRepository.save(inscripcion);</span>
     }
 
     /**
@@ -55,14 +61,15 @@ import java.util.Optional;
      * @param inscripcionActualizada Inscripción actualizada
      * @return Inscripción
      */
+    @Operation(summary = &quot;Actualizar inscripción&quot;, description = &quot;Actualiza una inscripción existente por su ID&quot;)
     public Inscripcion actualizarInscripcion(Long id, Inscripcion inscripcionActualizada) {
-<span class="fc" id="L59">        return inscripcionRepository.findById(id)</span>
-<span class="fc" id="L60">                .map(inscripcion -&gt; {</span>
-<span class="fc" id="L61">                    inscripcion.setId_estudiante(inscripcionActualizada.getId_estudiante());</span>
-<span class="fc" id="L62">                    inscripcion.setId_curso(inscripcionActualizada.getId_curso());</span>
-<span class="fc" id="L63">                    inscripcion.setFecha_inscripcion(inscripcionActualizada.getFecha_inscripcion());</span>
-<span class="fc" id="L64">                    return inscripcionRepository.save(inscripcion);</span>
-<span class="fc" id="L65">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Inscripción no encontrada con ID: &quot; + id));</span>
+<span class="fc" id="L66">        return inscripcionRepository.findById(id)</span>
+<span class="fc" id="L67">                .map(inscripcion -&gt; {</span>
+<span class="fc" id="L68">                    inscripcion.setId_estudiante(inscripcionActualizada.getId_estudiante());</span>
+<span class="fc" id="L69">                    inscripcion.setId_curso(inscripcionActualizada.getId_curso());</span>
+<span class="fc" id="L70">                    inscripcion.setFecha_inscripcion(inscripcionActualizada.getFecha_inscripcion());</span>
+<span class="fc" id="L71">                    return inscripcionRepository.save(inscripcion);</span>
+<span class="fc" id="L72">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Inscripción no encontrada con ID: &quot; + id));</span>
     }
 
     /**
@@ -70,11 +77,12 @@ import java.util.Optional;
      * 
      * @param id ID de la inscripción a eliminar
      */
+    @Operation(summary = &quot;Eliminar inscripción&quot;, description = &quot;Elimina una inscripción existente por su ID&quot;)
     public void eliminarInscripcion(Long id) {
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!inscripcionRepository.existsById(id)) {</span>
-<span class="fc" id="L75">            throw new RuntimeException(&quot;Inscripción no encontrada con ID: &quot; + id);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (!inscripcionRepository.existsById(id)) {</span>
+<span class="fc" id="L83">            throw new RuntimeException(&quot;Inscripción no encontrada con ID: &quot; + id);</span>
         }
-<span class="fc" id="L77">        inscripcionRepository.deleteById(id);</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L85">        inscripcionRepository.deleteById(id);</span>
+<span class="fc" id="L86">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

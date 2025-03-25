@@ -13,6 +13,9 @@ import com.proof.model.Role;
 import com.proof.model.User;
 import com.proof.repository.UserRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -20,8 +23,9 @@ import lombok.RequiredArgsConstructor;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;Auth Service&quot;, description = &quot;Servicio para autenticación y registro de usuarios&quot;)
 @Service
-<span class="nc" id="L24">@RequiredArgsConstructor</span>
+<span class="nc" id="L28">@RequiredArgsConstructor</span>
 public class AuthService {
 
         private final UserRepository userRepository;
@@ -35,15 +39,16 @@ public class AuthService {
          * @param request
          * @return
          */
+        @Operation(summary = &quot;Autenticar usuario&quot;, description = &quot;Autentica un usuario existente y devuelve un token JWT&quot;)
         public AuthResponse login(LoginRequest request) {
-<span class="nc" id="L39">                authenticationManager</span>
-<span class="nc" id="L40">                                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),</span>
-<span class="nc" id="L41">                                                request.getPassword()));</span>
-<span class="nc" id="L42">                UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();</span>
-<span class="nc" id="L43">                String token = jwtService.getToken(user);</span>
-<span class="nc" id="L44">                return AuthResponse.builder()</span>
-<span class="nc" id="L45">                                .token(token)</span>
-<span class="nc" id="L46">                                .build();</span>
+<span class="nc" id="L44">                authenticationManager</span>
+<span class="nc" id="L45">                                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),</span>
+<span class="nc" id="L46">                                                request.getPassword()));</span>
+<span class="nc" id="L47">                UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();</span>
+<span class="nc" id="L48">                String token = jwtService.getToken(user);</span>
+<span class="nc" id="L49">                return AuthResponse.builder()</span>
+<span class="nc" id="L50">                                .token(token)</span>
+<span class="nc" id="L51">                                .build();</span>
 
         }
 
@@ -53,21 +58,22 @@ public class AuthService {
          * @param request
          * @return
          */
+        @Operation(summary = &quot;Registrar usuario&quot;, description = &quot;Registra un nuevo usuario y devuelve un token JWT&quot;)
         public AuthResponse register(RegisterRequest request) {
-<span class="nc" id="L57">                User user = User.builder()</span>
-<span class="nc" id="L58">                                .username(request.getUsername())</span>
-<span class="nc" id="L59">                                .password(passwordEncoder.encode(request.getPassword()))</span>
-<span class="nc" id="L60">                                .firstname(request.getFirstname())</span>
-<span class="nc" id="L61">                                .lastname(request.getLastname())</span>
-<span class="nc" id="L62">                                .country(request.getCountry())</span>
-<span class="nc" id="L63">                                .role(Role.USER)</span>
-<span class="nc" id="L64">                                .build();</span>
-
-<span class="nc" id="L66">                userRepository.save(user);</span>
-
-<span class="nc" id="L68">                return AuthResponse.builder()</span>
-<span class="nc" id="L69">                                .token(jwtService.getToken(user))</span>
+<span class="nc" id="L63">                User user = User.builder()</span>
+<span class="nc" id="L64">                                .username(request.getUsername())</span>
+<span class="nc" id="L65">                                .password(passwordEncoder.encode(request.getPassword()))</span>
+<span class="nc" id="L66">                                .firstname(request.getFirstname())</span>
+<span class="nc" id="L67">                                .lastname(request.getLastname())</span>
+<span class="nc" id="L68">                                .country(request.getCountry())</span>
+<span class="nc" id="L69">                                .role(Role.USER)</span>
 <span class="nc" id="L70">                                .build();</span>
+
+<span class="nc" id="L72">                userRepository.save(user);</span>
+
+<span class="nc" id="L74">                return AuthResponse.builder()</span>
+<span class="nc" id="L75">                                .token(jwtService.getToken(user))</span>
+<span class="nc" id="L76">                                .build();</span>
 
         }
 

@@ -13,6 +13,9 @@ import com.proof.model.Role;
 import com.proof.model.User;
 import com.proof.repository.UserRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -20,6 +23,7 @@ import lombok.RequiredArgsConstructor;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = "Auth Service", description = "Servicio para autenticación y registro de usuarios")
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -35,6 +39,7 @@ public class AuthService {
          * @param request
          * @return
          */
+        @Operation(summary = "Autenticar usuario", description = "Autentica un usuario existente y devuelve un token JWT")
         public AuthResponse login(LoginRequest request) {
                 authenticationManager
                                 .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
@@ -53,6 +58,7 @@ public class AuthService {
          * @param request
          * @return
          */
+        @Operation(summary = "Registrar usuario", description = "Registra un nuevo usuario y devuelve un token JWT")
         public AuthResponse register(RegisterRequest request) {
                 User user = User.builder()
                                 .username(request.getUsername())

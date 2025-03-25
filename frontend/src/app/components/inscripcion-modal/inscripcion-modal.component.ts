@@ -53,15 +53,15 @@ export class InscripcionModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerEstudiantes();
-    this.obtenerCursos();
+    this.cargarEstudiantes();
+    this.cargarCursos();
   }
 
   cerrarModal(): void {
     this.dialogRef.close();
   }
 
-  obtenerEstudiantes(): void {
+  cargarEstudiantes(): void {
     this.estudianteService.obtenerStudents().subscribe({
       next: (response) => {
         this.estudiantes = response;
@@ -72,7 +72,7 @@ export class InscripcionModalComponent implements OnInit {
     });
   }
 
-  obtenerCursos(): void {
+  cargarCursos(): void {
     this.cursoService.obtenerCursos().subscribe({
       next: (response) => {
         this.cursos = response;

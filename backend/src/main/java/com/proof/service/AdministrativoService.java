@@ -2,6 +2,11 @@ package com.proof.service;
 
 import com.proof.model.Administrativo;
 import com.proof.repository.AdministrativoRepository;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +19,7 @@ import java.util.Optional;
  * @autor David Orlando Velez Zamora
  */
 @Service
+@Tag(name = "Administrativo Service", description = "Operaciones relacionadas con la entidad Administrativo")
 public class AdministrativoService {
 
     @Autowired
@@ -24,6 +30,7 @@ public class AdministrativoService {
      * 
      * @return Lista de administrativos
      */
+    @Operation(summary = "Listar todos los administrativos", description = "Obtiene una lista de todos los administrativos")
     public List<Administrativo> listarAdministrativos() {
         return administrativoRepository.findAll();
     }
@@ -34,6 +41,7 @@ public class AdministrativoService {
      * @param id ID del administrativo a obtener
      * @return Administrativo
      */
+    @Operation(summary = "Obtener un administrativo por ID", description = "Obtiene un administrativo específico por su ID")
     public Optional<Administrativo> obtenerAdministrativoPorId(Long id) {
         return administrativoRepository.findById(id);
     }
@@ -44,7 +52,8 @@ public class AdministrativoService {
      * @param administrativo Administrativo a guardar
      * @return Administrativo
      */
-    public Administrativo guardarAdministrativo(Administrativo administrativo) {
+    @Operation(summary = "Guardar un administrativo", description = "Guarda un nuevo administrativo en la base de datos")
+    public Administrativo guardarAdministrativo(@RequestBody(description = "Datos del administrativo a guardar") Administrativo administrativo) {
         return administrativoRepository.save(administrativo);
     }
 
@@ -55,7 +64,8 @@ public class AdministrativoService {
      * @param administrativoActualizado Administrativo actualizado
      * @return Administrativo
      */
-    public Administrativo actualizarAdministrativo(Long id, Administrativo administrativoActualizado) {
+    @Operation(summary = "Actualizar un administrativo", description = "Actualiza los datos de un administrativo existente")
+    public Administrativo actualizarAdministrativo(Long id, @RequestBody(description = "Datos actualizados del administrativo") Administrativo administrativoActualizado) {
         return administrativoRepository.findById(id)
                 .map(administrativo -> {
                     administrativo.setCargo(administrativoActualizado.getCargo());
@@ -70,6 +80,7 @@ public class AdministrativoService {
      * @param id ID del administrativo a eliminar
      * @throws RuntimeException
      */
+    @Operation(summary = "Eliminar un administrativo", description = "Elimina un administrativo existente por su ID")
     public void eliminarAdministrativo(Long id) {
         if (!administrativoRepository.existsById(id)) {
             throw new RuntimeException("Administrativo no encontrado con ID: " + id);

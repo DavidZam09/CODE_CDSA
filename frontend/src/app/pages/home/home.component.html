@@ -1,1 +1,37 @@
-<p>Home</p>
+<link rel="stylesheet" href="./home.component.css">
+<div class="dashboard">
+    <header>
+        <h1>Panel de Control</h1>
+    </header>
+    <section class="courses">
+        <h2>Cursos</h2>
+        <button class="manage-button" onclick="location.href='/curso'">Gestionar Cursos</button>
+        <ul>
+            <li>Curso 1 - Descripción: Introducción a la Programación</li>
+            <li>Curso 2 - Descripción: Matemáticas Avanzadas</li>
+            <li>Curso 3 - Descripción: Fundamentos de Física</li>
+        </ul>
+    </section>
+    <section class="students">
+        <h2>Estudiantes</h2>
+        <button class="manage-button" onclick="location.href='/student'">Gestionar Estudiantes</button>
+        <ul>
+            <li>Estudiante 1 - Edad: 20</li>
+            <li>Estudiante 2 - Edad: 22</li>
+            <li>Estudiante 3 - Edad: 19</li>
+        </ul>
+    </section>
+    <section class="teachers">
+        <h2>Profesores</h2>
+        <button class="manage-button" onclick="location.href='/profesor'">Gestionar Profesores</button>
+        <ul>
+            <li>Profesor 1 - Materia: Programación</li>
+            <li>Profesor 2 - Materia: Matemáticas</li>
+            <li>Profesor 3 - Materia: Física</li>
+        </ul>
+    </section>
+    <footer>
+        <p>Pie de Página del Panel</p>
+        <button class="cta-button">Contáctanos</button>
+    </footer>
+</div>

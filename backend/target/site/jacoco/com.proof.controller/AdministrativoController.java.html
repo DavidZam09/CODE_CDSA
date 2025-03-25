@@ -2,6 +2,8 @@
 
 import com.proof.model.Administrativo;
 import com.proof.service.AdministrativoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +19,11 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;Administrativos&quot;, description = &quot;API para la gestión de administrativos&quot;)
 @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
 @RestController
 @RequestMapping(&quot;/api/v1/administrativos&quot;)
-<span class="nc" id="L23">public class AdministrativoController {</span>
+<span class="nc" id="L26">public class AdministrativoController {</span>
 
     @Autowired
     private AdministrativoService administrativoService;
@@ -30,13 +33,14 @@ import java.util.Optional;
      * 
      * @return ResponseEntity con la lista de administrativos
      */
+    @Operation(summary = &quot;Listar todos los administrativos&quot;, description = &quot;Obtiene una lista de todos los administrativos registrados&quot;)
     @GetMapping
     public ResponseEntity&lt;?&gt; listarAdministrativos() {
-<span class="nc" id="L35">        List&lt;Administrativo&gt; administrativos = administrativoService.listarAdministrativos();</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (administrativos.isEmpty()) {</span>
-<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron administrativos&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L39">        List&lt;Administrativo&gt; administrativos = administrativoService.listarAdministrativos();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (administrativos.isEmpty()) {</span>
+<span class="nc" id="L41">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron administrativos&quot;, HttpStatus.NOT_FOUND);</span>
         } else {
-<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(administrativos, HttpStatus.OK);</span>
+<span class="nc" id="L43">            return new ResponseEntity&lt;&gt;(administrativos, HttpStatus.OK);</span>
         }
     }
 
@@ -46,13 +50,14 @@ import java.util.Optional;
      * @param id ID del administrativo a obtener
      * @return ResponseEntity con el administrativo obtenido
      */
+    @Operation(summary = &quot;Obtener un administrativo por ID&quot;, description = &quot;Obtiene un administrativo específico mediante su ID&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; obtenerAdministrativoPorId(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L51">        Optional&lt;Administrativo&gt; administrativo = administrativoService.obtenerAdministrativoPorId(id);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (administrativo.isPresent()) {</span>
-<span class="nc" id="L53">            return new ResponseEntity&lt;&gt;(administrativo, HttpStatus.OK);</span>
+<span class="nc" id="L56">        Optional&lt;Administrativo&gt; administrativo = administrativoService.obtenerAdministrativoPorId(id);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (administrativo.isPresent()) {</span>
+<span class="nc" id="L58">            return new ResponseEntity&lt;&gt;(administrativo, HttpStatus.OK);</span>
         } else {
-<span class="nc" id="L55">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el administrativo&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L60">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el administrativo&quot;, HttpStatus.NOT_FOUND);</span>
         }
     }
 
@@ -62,10 +67,11 @@ import java.util.Optional;
      * @param administrativo administrativo a guardar
      * @return ResponseEntity con el administrativo guardado
      */
+    @Operation(summary = &quot;Crear un nuevo administrativo&quot;, description = &quot;Crea un nuevo administrativo con los datos proporcionados&quot;)
     @PostMapping
     public ResponseEntity&lt;Administrativo&gt; crearAdministrativo(@RequestBody Administrativo administrativo) {
-<span class="nc" id="L67">        Administrativo nuevoAdministrativo = administrativoService.guardarAdministrativo(administrativo);</span>
-<span class="nc" id="L68">        return ResponseEntity.ok(nuevoAdministrativo);</span>
+<span class="nc" id="L73">        Administrativo nuevoAdministrativo = administrativoService.guardarAdministrativo(administrativo);</span>
+<span class="nc" id="L74">        return ResponseEntity.ok(nuevoAdministrativo);</span>
     }
 
     /**
@@ -75,15 +81,16 @@ import java.util.Optional;
      * @param administrativo administrativo con los datos actualizados
      * @return ResponseEntity con el administrativo actualizado
      */
+    @Operation(summary = &quot;Actualizar un administrativo&quot;, description = &quot;Actualiza los datos de un administrativo existente mediante su ID&quot;)
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Administrativo&gt; actualizarAdministrativo(@PathVariable(&quot;id&quot;) Long id,
             @RequestBody Administrativo administrativo) {
         try {
-<span class="nc" id="L82">            Administrativo administrativoActualizado = administrativoService.actualizarAdministrativo(id,</span>
+<span class="nc" id="L89">            Administrativo administrativoActualizado = administrativoService.actualizarAdministrativo(id,</span>
                     administrativo);
-<span class="nc" id="L84">            return ResponseEntity.ok(administrativoActualizado);</span>
-<span class="nc" id="L85">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L86">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L91">            return ResponseEntity.ok(administrativoActualizado);</span>
+<span class="nc" id="L92">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L93">            return ResponseEntity.notFound().build();</span>
         }
     }
 
@@ -93,13 +100,14 @@ import java.util.Optional;
      * @param id ID del administrativo a eliminar
      * @return ResponseEntity con el administrativo eliminado
      */
+    @Operation(summary = &quot;Eliminar un administrativo&quot;, description = &quot;Elimina un administrativo existente mediante su ID&quot;)
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; eliminarAdministrativo(@PathVariable(&quot;id&quot;) Long id) {
         try {
-<span class="nc" id="L99">            administrativoService.eliminarAdministrativo(id);</span>
-<span class="nc" id="L100">            return ResponseEntity.noContent().build();</span>
-<span class="nc" id="L101">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L102">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L107">            administrativoService.eliminarAdministrativo(id);</span>
+<span class="nc" id="L108">            return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L109">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L110">            return ResponseEntity.notFound().build();</span>
         }
     }
 }

@@ -5,7 +5,7 @@
     <!-- Select Student -->
     <mat-form-field>
       <mat-label>Estudiante</mat-label>
-      <mat-select [(ngModel)]="inscripcion.id_estudiante" name="id_estudiante" required>
+      <mat-select matInput [(ngModel)]="inscripcion.id_estudiante" name="id_estudiante" required>
         <mat-option *ngFor="let estudiante of estudiantes" [value]="estudiante.id_Persona">
           {{ estudiante.nombre }} {{ estudiante.apellido }}
         </mat-option>
@@ -15,7 +15,7 @@
     <!-- Select Course -->
     <mat-form-field>
       <mat-label>Curso</mat-label>
-      <mat-select [(ngModel)]="inscripcion.id_curso" name="id_curso" required>
+      <mat-select matInput [(ngModel)]="inscripcion.id_curso" name="id_curso" required>
         <mat-option *ngFor="let curso of cursos" [value]="curso.id_Curso">
           {{ curso.nombre }}
         </mat-option>
@@ -24,8 +24,12 @@
 
     <!-- Inscription Date -->
     <mat-form-field>
-      <mat-label>Fecha de Inscripción</mat-label>
-      <input matInput type="date" [(ngModel)]="inscripcion.fecha_inscripcion" name="fecha_inscripcion" [max]="today" required>
+      <mat-label>Profesor</mat-label>
+      <mat-select [(ngModel)]="inscripcion.id_estudiante" name="id_estudiante" required>
+        <mat-option *ngFor="let studiante of estudiantes" [value]="studiante.id_Persona">
+          {{ studiante.nombre }} {{ studiante.apellido }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </form>
 </mat-dialog-content>

@@ -3,6 +3,9 @@ package com.proof.controller;
 import com.proof.model.Profesor;
 import com.proof.service.ProfesorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/profesores")
 @CrossOrigin(origins = "http://localhost:4200")
+@Tag(name = "Profesores", description = "API para la gestión de profesores")
 public class ProfesorController {
 
     @Autowired
@@ -32,6 +36,7 @@ public class ProfesorController {
      * 
      * @return ResponseEntity con la lista de profesores
      */
+    @Operation(summary = "Listar todos los profesores", description = "Obtiene una lista de todos los profesores registrados")
     @GetMapping
     public ResponseEntity<?> listarProfesores() {
         List<Profesor> profesores = profesorService.listarProfesores();
@@ -48,6 +53,7 @@ public class ProfesorController {
      * @param id ID del profesor a obtener
      * @return ResponseEntity con el profesor obtenido
      */
+    @Operation(summary = "Obtener un profesor por ID", description = "Obtiene los detalles de un profesor específico mediante su ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerProfesorPorId(@PathVariable("id") Long id) {
         Optional<Profesor> profesor = profesorService.obtenerProfesorPorId(id);
@@ -64,6 +70,7 @@ public class ProfesorController {
      * @param profesor Profesor a guardar
      * @return ResponseEntity con el profesor guardado
      */
+    @Operation(summary = "Crear un nuevo profesor", description = "Crea un nuevo profesor en el sistema")
     @PostMapping
     public ResponseEntity<Profesor> crearProfesor(@Valid @RequestBody Profesor profesor) {
         return ResponseEntity.ok(profesorService.guardarProfesor(profesor));
@@ -76,6 +83,7 @@ public class ProfesorController {
      * @param profesor Profesor a actualizar
      * @return Profesor actualizado
      */
+    @Operation(summary = "Actualizar un profesor", description = "Actualiza los datos de un profesor existente")
     @PutMapping("/{id}")
     public Profesor actualizarProfesor(@PathVariable("id") Long id, @Valid @RequestBody Profesor profesor) {
         return profesorService.actualizarProfesor(id, profesor);
@@ -86,6 +94,7 @@ public class ProfesorController {
      * 
      * @param id ID del profesor a eliminar
      */
+    @Operation(summary = "Eliminar un profesor", description = "Elimina un profesor del sistema mediante su ID")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarProfesor(@PathVariable("id") Long id) {

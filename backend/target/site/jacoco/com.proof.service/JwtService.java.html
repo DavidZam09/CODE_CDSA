@@ -13,14 +13,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Servicio de JWT (Json Web Token)
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;JWT Service&quot;, description = &quot;Servicio para la gestión de tokens JWT&quot;)
 @Service
-<span class="nc" id="L23">public class JwtService {</span>
+<span class="nc" id="L26">public class JwtService {</span>
 
     private static final String SECRET_KEY = &quot;586E3272357538782F413F4428472B4B6250655368566B597033733676397924&quot;;
 
@@ -30,8 +33,9 @@ import io.jsonwebtoken.security.Keys;
      * @param user
      * @return
      */
+    @Operation(summary = &quot;Generar un token JWT&quot;, description = &quot;Genera un token JWT para un usuario dado.&quot;)
     public String getToken(UserDetails user) {
-<span class="nc" id="L34">        return getToken(new HashMap&lt;&gt;(), user);</span>
+<span class="nc" id="L38">        return getToken(new HashMap&lt;&gt;(), user);</span>
     }
 
     /**
@@ -42,14 +46,14 @@ import io.jsonwebtoken.security.Keys;
      * @return
      */
     private String getToken(Map&lt;String, Object&gt; extraClaims, UserDetails user) {
-<span class="nc" id="L45">        return Jwts</span>
-<span class="nc" id="L46">                .builder()</span>
-<span class="nc" id="L47">                .setClaims(extraClaims)</span>
-<span class="nc" id="L48">                .setSubject(user.getUsername())</span>
-<span class="nc" id="L49">                .setIssuedAt(new Date(System.currentTimeMillis()))</span>
-<span class="nc" id="L50">                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))</span>
-<span class="nc" id="L51">                .signWith(getKey(), SignatureAlgorithm.HS256)</span>
-<span class="nc" id="L52">                .compact();</span>
+<span class="nc" id="L49">        return Jwts</span>
+<span class="nc" id="L50">                .builder()</span>
+<span class="nc" id="L51">                .setClaims(extraClaims)</span>
+<span class="nc" id="L52">                .setSubject(user.getUsername())</span>
+<span class="nc" id="L53">                .setIssuedAt(new Date(System.currentTimeMillis()))</span>
+<span class="nc" id="L54">                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))</span>
+<span class="nc" id="L55">                .signWith(getKey(), SignatureAlgorithm.HS256)</span>
+<span class="nc" id="L56">                .compact();</span>
     }
 
     /**
@@ -58,8 +62,8 @@ import io.jsonwebtoken.security.Keys;
      * @return Clave secreta
      */
     private Key getKey() {
-<span class="nc" id="L61">        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);</span>
-<span class="nc" id="L62">        return Keys.hmacShaKeyFor(keyBytes);</span>
+<span class="nc" id="L65">        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);</span>
+<span class="nc" id="L66">        return Keys.hmacShaKeyFor(keyBytes);</span>
     }
 
     /**
@@ -68,8 +72,9 @@ import io.jsonwebtoken.security.Keys;
      * @param token
      * @return Nombre de usuario
      */
+    @Operation(summary = &quot;Obtener el nombre de usuario desde el token&quot;, description = &quot;Extrae el nombre de usuario contenido en el token JWT.&quot;)
     public String getUsernameFromToken(String token) {
-<span class="nc" id="L72">        return getClaim(token, Claims::getSubject);</span>
+<span class="nc" id="L77">        return getClaim(token, Claims::getSubject);</span>
     }
 
     /**
@@ -79,9 +84,10 @@ import io.jsonwebtoken.security.Keys;
      * @param userDetails
      * @return true si el token es válido, false en caso contrario
      */
+    @Operation(summary = &quot;Verificar si el token es válido&quot;, description = &quot;Valida si el token JWT corresponde al usuario y no ha expirado.&quot;)
     public boolean isTokenValid(String token, UserDetails userDetails) {
-<span class="nc" id="L83">        final String username = getUsernameFromToken(token);</span>
-<span class="nc bnc" id="L84" title="All 4 branches missed.">        return (username.equals(userDetails.getUsername()) &amp;&amp; !isTokenExpired(token));</span>
+<span class="nc" id="L89">        final String username = getUsernameFromToken(token);</span>
+<span class="nc bnc" id="L90" title="All 4 branches missed.">        return (username.equals(userDetails.getUsername()) &amp;&amp; !isTokenExpired(token));</span>
     }
 
     /**
@@ -91,12 +97,12 @@ import io.jsonwebtoken.security.Keys;
      * @return Claims
      */
     private Claims getAllClaims(String token) {
-<span class="nc" id="L94">        return Jwts</span>
-<span class="nc" id="L95">                .parserBuilder()</span>
-<span class="nc" id="L96">                .setSigningKey(getKey())</span>
-<span class="nc" id="L97">                .build()</span>
-<span class="nc" id="L98">                .parseClaimsJws(token)</span>
-<span class="nc" id="L99">                .getBody();</span>
+<span class="nc" id="L100">        return Jwts</span>
+<span class="nc" id="L101">                .parserBuilder()</span>
+<span class="nc" id="L102">                .setSigningKey(getKey())</span>
+<span class="nc" id="L103">                .build()</span>
+<span class="nc" id="L104">                .parseClaimsJws(token)</span>
+<span class="nc" id="L105">                .getBody();</span>
     }
 
     /**
@@ -106,9 +112,10 @@ import io.jsonwebtoken.security.Keys;
      * @param claimsResolver
      * @return Claim específica
      */
+    @Operation(summary = &quot;Obtener una reclamación específica del token&quot;, description = &quot;Obtiene un valor específico de las reclamaciones del token JWT.&quot;)
     public &lt;T&gt; T getClaim(String token, Function&lt;Claims, T&gt; claimsResolver) {
-<span class="nc" id="L110">        final Claims claims = getAllClaims(token);</span>
-<span class="nc" id="L111">        return claimsResolver.apply(claims);</span>
+<span class="nc" id="L117">        final Claims claims = getAllClaims(token);</span>
+<span class="nc" id="L118">        return claimsResolver.apply(claims);</span>
     }
 
     /**
@@ -118,7 +125,7 @@ import io.jsonwebtoken.security.Keys;
      * @return Fecha de expiración del token
      */
     private Date getExpiration(String token) {
-<span class="nc" id="L121">        return getClaim(token, Claims::getExpiration);</span>
+<span class="nc" id="L128">        return getClaim(token, Claims::getExpiration);</span>
     }
 
     /**
@@ -127,8 +134,8 @@ import io.jsonwebtoken.security.Keys;
      * @param token
      * @return true si el token ha expirado, false en caso contrario
      */
-    private boolean isTokenExpired(String token) {
-<span class="nc" id="L131">        return getExpiration(token).before(new Date());</span>
+    public boolean isTokenExpired(String token) {
+<span class="nc" id="L138">        return getExpiration(token).before(new Date());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

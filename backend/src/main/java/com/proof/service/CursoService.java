@@ -2,6 +2,8 @@ package com.proof.service;
 
 import com.proof.model.Curso;
 import com.proof.repository.CursoRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = "CursoService", description = "Servicio para la gestión de cursos")
 @Service
 public class CursoService {
 
@@ -24,6 +27,7 @@ public class CursoService {
      * 
      * @return Lista de cursos
      */
+    @Operation(summary = "Listar todos los cursos", description = "Obtiene una lista de todos los cursos disponibles")
     public List<Curso> listarCursos() {
         return cursoRepository.findAll();
     }
@@ -34,6 +38,7 @@ public class CursoService {
      * @param id ID del curso a obtener
      * @return Curso
      */
+    @Operation(summary = "Obtener un curso por ID", description = "Obtiene los detalles de un curso específico por su ID")
     public Optional<Curso> obtenerCursoPorId(Long id) {
         return cursoRepository.findById(id);
     }
@@ -44,6 +49,7 @@ public class CursoService {
      * @param curso Curso a guardar
      * @return Curso
      */
+    @Operation(summary = "Guardar un curso", description = "Guarda un nuevo curso en el sistema")
     public Curso guardarCurso(Curso curso) {
         return cursoRepository.save(curso);
     }
@@ -55,6 +61,7 @@ public class CursoService {
      * @param cursoActualizado Curso actualizado
      * @return Curso
      */
+    @Operation(summary = "Actualizar un curso", description = "Actualiza los detalles de un curso existente por su ID")
     public Curso actualizarCurso(Long id, Curso cursoActualizado) {
         return cursoRepository.findById(id)
                 .map(curso -> {
@@ -71,6 +78,7 @@ public class CursoService {
      * 
      * @param id ID del curso a eliminar
      */
+    @Operation(summary = "Eliminar un curso", description = "Elimina un curso existente por su ID")
     public void eliminarCurso(Long id) {
         if (!cursoRepository.existsById(id)) {
             throw new RuntimeException("Curso no encontrado con ID: " + id);

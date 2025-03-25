@@ -2,6 +2,8 @@ package com.proof.controller;
 
 import com.proof.model.Inscripcion;
 import com.proof.service.InscripcionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/inscripciones")
+@Tag(name = "Inscripciones", description = "API para la gestión de inscripciones")
 public class InscripcionController {
 
     @Autowired
@@ -28,6 +31,7 @@ public class InscripcionController {
      * 
      * @return ResponseEntity con la lista de inscripciones
      */
+    @Operation(summary = "Listar inscripciones", description = "Obtiene una lista de todas las inscripciones")
     @GetMapping
     public ResponseEntity<?> listarInscripciones() {
         List<Inscripcion> inscripcions = inscripcionService.listarInscripciones();
@@ -44,6 +48,7 @@ public class InscripcionController {
      * @param id ID de la inscripcion a obtener
      * @return ResponseEntity con la inscripcion obtenida
      */
+    @Operation(summary = "Obtener inscripcion por ID", description = "Obtiene una inscripcion específica por su ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerInscripcionPorId(@PathVariable("id") Long id) {
         Optional<Inscripcion> inscripcion = inscripcionService.obtenerInscripcionPorId(id);
@@ -60,6 +65,7 @@ public class InscripcionController {
      * @param inscripcion inscripcion a guardar
      * @return ResponseEntity con la inscripcion guardada
      */
+    @Operation(summary = "Crear inscripcion", description = "Crea una nueva inscripcion")
     @PostMapping
     public ResponseEntity<Inscripcion> crearInscripcion(@RequestBody Inscripcion inscripcion) {
         Inscripcion nuevaInscripcion = inscripcionService.guardarInscripcion(inscripcion);
@@ -73,6 +79,7 @@ public class InscripcionController {
      * @param inscripcion inscripcion con los datos actualizados
      * @return ResponseEntity con la inscripcion actualizada
      */
+    @Operation(summary = "Actualizar inscripcion", description = "Actualiza una inscripcion existente por su ID")
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarInscripcion(@PathVariable("id") Long id,
             @RequestBody Inscripcion inscripcion) {
@@ -90,6 +97,7 @@ public class InscripcionController {
      * @param id ID de la inscripcion a eliminar
      * @return ResponseEntity con la respuesta de la eliminación
      */
+    @Operation(summary = "Eliminar inscripcion", description = "Elimina una inscripcion existente por su ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarInscripcion(@PathVariable("id") Long id) {
         try {

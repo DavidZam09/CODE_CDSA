@@ -3,6 +3,9 @@
 import com.proof.model.Profesor;
 import com.proof.service.ProfesorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping(&quot;/api/v1/profesores&quot;)
 @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
-<span class="nc" id="L25">public class ProfesorController {</span>
+@Tag(name = &quot;Profesores&quot;, description = &quot;API para la gestión de profesores&quot;)
+<span class="nc" id="L29">public class ProfesorController {</span>
 
     @Autowired
     private ProfesorService profesorService;
@@ -32,13 +36,14 @@ import java.util.Optional;
      * 
      * @return ResponseEntity con la lista de profesores
      */
+    @Operation(summary = &quot;Listar todos los profesores&quot;, description = &quot;Obtiene una lista de todos los profesores registrados&quot;)
     @GetMapping
     public ResponseEntity&lt;?&gt; listarProfesores() {
-<span class="nc" id="L37">        List&lt;Profesor&gt; profesores = profesorService.listarProfesores();</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (profesores.isEmpty()) {</span>
-<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron profesores&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L42">        List&lt;Profesor&gt; profesores = profesorService.listarProfesores();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (profesores.isEmpty()) {</span>
+<span class="nc" id="L44">            return new ResponseEntity&lt;&gt;(&quot;No se encontraron profesores&quot;, HttpStatus.NOT_FOUND);</span>
         } else {
-<span class="nc" id="L41">            return new ResponseEntity&lt;&gt;(profesores, HttpStatus.OK);</span>
+<span class="nc" id="L46">            return new ResponseEntity&lt;&gt;(profesores, HttpStatus.OK);</span>
         }
     }
 
@@ -48,13 +53,14 @@ import java.util.Optional;
      * @param id ID del profesor a obtener
      * @return ResponseEntity con el profesor obtenido
      */
+    @Operation(summary = &quot;Obtener un profesor por ID&quot;, description = &quot;Obtiene los detalles de un profesor específico mediante su ID&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; obtenerProfesorPorId(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L53">        Optional&lt;Profesor&gt; profesor = profesorService.obtenerProfesorPorId(id);</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (profesor.isEmpty()) {</span>
-<span class="nc" id="L55">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvo el profesor&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L59">        Optional&lt;Profesor&gt; profesor = profesorService.obtenerProfesorPorId(id);</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (profesor.isEmpty()) {</span>
+<span class="nc" id="L61">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvo el profesor&quot;, HttpStatus.NOT_FOUND);</span>
         } else {
-<span class="nc" id="L57">            return ResponseEntity.ok(profesor);</span>
+<span class="nc" id="L63">            return ResponseEntity.ok(profesor);</span>
         }
     }
 
@@ -64,9 +70,10 @@ import java.util.Optional;
      * @param profesor Profesor a guardar
      * @return ResponseEntity con el profesor guardado
      */
+    @Operation(summary = &quot;Crear un nuevo profesor&quot;, description = &quot;Crea un nuevo profesor en el sistema&quot;)
     @PostMapping
     public ResponseEntity&lt;Profesor&gt; crearProfesor(@Valid @RequestBody Profesor profesor) {
-<span class="nc" id="L69">        return ResponseEntity.ok(profesorService.guardarProfesor(profesor));</span>
+<span class="nc" id="L76">        return ResponseEntity.ok(profesorService.guardarProfesor(profesor));</span>
     }
 
     /**
@@ -76,9 +83,10 @@ import java.util.Optional;
      * @param profesor Profesor a actualizar
      * @return Profesor actualizado
      */
+    @Operation(summary = &quot;Actualizar un profesor&quot;, description = &quot;Actualiza los datos de un profesor existente&quot;)
     @PutMapping(&quot;/{id}&quot;)
     public Profesor actualizarProfesor(@PathVariable(&quot;id&quot;) Long id, @Valid @RequestBody Profesor profesor) {
-<span class="nc" id="L81">        return profesorService.actualizarProfesor(id, profesor);</span>
+<span class="nc" id="L89">        return profesorService.actualizarProfesor(id, profesor);</span>
     }
 
     /**
@@ -86,10 +94,11 @@ import java.util.Optional;
      * 
      * @param id ID del profesor a eliminar
      */
+    @Operation(summary = &quot;Eliminar un profesor&quot;, description = &quot;Elimina un profesor del sistema mediante su ID&quot;)
     @DeleteMapping(&quot;/{id}&quot;)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminarProfesor(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L92">        profesorService.eliminarProfesor(id);</span>
-<span class="nc" id="L93">    }</span>
+<span class="nc" id="L101">        profesorService.eliminarProfesor(id);</span>
+<span class="nc" id="L102">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

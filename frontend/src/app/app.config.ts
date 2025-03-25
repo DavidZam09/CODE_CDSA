@@ -37,10 +37,10 @@ const routes: Routes = [
       { path: 'admon', component: AdmonComponent, canActivate: [AuthGuard] },
       { path: 'curso', component: CursoComponent, canActivate: [AuthGuard] },
       { path: 'inscripcion', component: InscripcionComponent, canActivate: [AuthGuard] },
-      { path: '', redirectTo: 'login', pathMatch: 'full' }
+      { path: '', redirectTo: 'login', pathMatch: 'full' } // Ensure this redirects to 'login'
     ]
   },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login', pathMatch: 'full' } // Catch-all route redirects to 'login'
 ];
 
 export const appConfig: ApplicationConfig = {

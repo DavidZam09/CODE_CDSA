@@ -14,15 +14,19 @@ import com.proof.dto.LoginRequest;
 import com.proof.dto.RegisterRequest;
 import com.proof.service.AuthService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * Controlador de autenticación que maneja las solicitudes de inicio de sesión y
  * registro de usuarios.
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;Autenticación&quot;, description = &quot;Controlador para la autenticación de usuarios&quot;)
 @RestController
 @RequestMapping(&quot;/auth&quot;)
-<span class="nc" id="L25">@RequiredArgsConstructor</span>
+<span class="fc" id="L29">@RequiredArgsConstructor</span>
 @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
 public class AuthController {
 
@@ -34,9 +38,10 @@ public class AuthController {
      * @param request Solicitud de inicio de sesión.
      * @return ResponseEntity con la respuesta de la solicitud.
      */
+    @Operation(summary = &quot;Iniciar sesión&quot;, description = &quot;Permite a un usuario iniciar sesión en el sistema&quot;)
     @PostMapping(value = &quot;login&quot;)
     public ResponseEntity&lt;AuthResponse&gt; login(@RequestBody LoginRequest request) {
-<span class="nc" id="L39">        return ResponseEntity.ok(authService.login(request));</span>
+<span class="fc" id="L44">        return ResponseEntity.ok(authService.login(request));</span>
     }
 
     /**
@@ -45,9 +50,10 @@ public class AuthController {
      * @param request Solicitud de registro de usuario.
      * @return ResponseEntity con la respuesta de la solicitud.
      */
+    @Operation(summary = &quot;Registrar usuario&quot;, description = &quot;Permite registrar un nuevo usuario en el sistema&quot;)
     @PostMapping(value = &quot;register&quot;)
     public ResponseEntity&lt;AuthResponse&gt; register(@RequestBody RegisterRequest request) {
-<span class="nc" id="L50">        return ResponseEntity.ok(authService.register(request));</span>
+<span class="fc" id="L56">        return ResponseEntity.ok(authService.register(request));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -2,6 +2,8 @@
 
 import com.proof.model.Curso;
 import com.proof.service.CursoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,11 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;Cursos&quot;, description = &quot;API para la gestión de cursos&quot;)
 @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
 @RestController
 @RequestMapping(&quot;/api/v1/cursos&quot;)
-<span class="nc" id="L22">public class CursoController {</span>
+<span class="nc" id="L25">public class CursoController {</span>
 
     @Autowired
     private CursoService cursoService;
@@ -29,13 +32,14 @@ import java.util.Optional;
      * 
      * @return ResponseEntity con la lista de cursos
      */
+    @Operation(summary = &quot;Listar todos los cursos&quot;, description = &quot;Obtiene una lista de todos los cursos disponibles&quot;)
     @GetMapping
     public ResponseEntity&lt;?&gt; listarCursos() {
-<span class="nc" id="L34">        List&lt;Curso&gt; cursos = cursoService.listarCursos();</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (cursos.isEmpty()) {</span>
-<span class="nc" id="L36">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvieron cursos&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L38">        List&lt;Curso&gt; cursos = cursoService.listarCursos();</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if (cursos.isEmpty()) {</span>
+<span class="nc" id="L40">            return new ResponseEntity&lt;&gt;(&quot;No se obtuvieron cursos&quot;, HttpStatus.NOT_FOUND);</span>
         } else {
-<span class="nc" id="L38">            return ResponseEntity.ok(cursos);</span>
+<span class="nc" id="L42">            return ResponseEntity.ok(cursos);</span>
         }
     }
 
@@ -45,13 +49,14 @@ import java.util.Optional;
      * @param id ID del curso a obtener
      * @return ResponseEntity con el curso obtenido
      */
+    @Operation(summary = &quot;Obtener un curso por ID&quot;, description = &quot;Obtiene un curso específico basado en su ID&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; obtenerCursoPorId(@PathVariable(&quot;id&quot;) Long id) {
-<span class="nc" id="L50">        Optional&lt;Curso&gt; curso = cursoService.obtenerCursoPorId(id);</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (curso.isPresent()) {</span>
-<span class="nc" id="L52">            return new ResponseEntity&lt;&gt;(curso, HttpStatus.OK);</span>
+<span class="nc" id="L55">        Optional&lt;Curso&gt; curso = cursoService.obtenerCursoPorId(id);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (curso.isPresent()) {</span>
+<span class="nc" id="L57">            return new ResponseEntity&lt;&gt;(curso, HttpStatus.OK);</span>
         } else {
-<span class="nc" id="L54">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el curso&quot;, HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L59">            return new ResponseEntity&lt;&gt;(&quot;No se encontró el curso&quot;, HttpStatus.NOT_FOUND);</span>
         }
     }
 
@@ -62,10 +67,11 @@ import java.util.Optional;
      * 
      * @return ResponseEntity con el curso creado
      */
+    @Operation(summary = &quot;Crear un nuevo curso&quot;, description = &quot;Crea un nuevo curso con la información proporcionada&quot;)
     @PostMapping
     public ResponseEntity&lt;Curso&gt; crearCurso(@RequestBody Curso curso) {
-<span class="nc" id="L67">        Curso nuevoCurso = cursoService.guardarCurso(curso);</span>
-<span class="nc" id="L68">        return ResponseEntity.ok(nuevoCurso);</span>
+<span class="nc" id="L73">        Curso nuevoCurso = cursoService.guardarCurso(curso);</span>
+<span class="nc" id="L74">        return ResponseEntity.ok(nuevoCurso);</span>
     }
 
     /**
@@ -75,13 +81,14 @@ import java.util.Optional;
      * @param curso Curso con los datos actualizados
      * @return ResponseEntity con el curso actualizado
      */
+    @Operation(summary = &quot;Actualizar un curso&quot;, description = &quot;Actualiza un curso existente basado en su ID&quot;)
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Curso&gt; actualizarCurso(@PathVariable(&quot;id&quot;) Long id, @RequestBody Curso curso) {
         try {
-<span class="nc" id="L81">            Curso cursoActualizado = cursoService.actualizarCurso(id, curso);</span>
-<span class="nc" id="L82">            return ResponseEntity.ok(cursoActualizado);</span>
-<span class="nc" id="L83">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L84">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L88">            Curso cursoActualizado = cursoService.actualizarCurso(id, curso);</span>
+<span class="nc" id="L89">            return ResponseEntity.ok(cursoActualizado);</span>
+<span class="nc" id="L90">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L91">            return ResponseEntity.notFound().build();</span>
         }
     }
 
@@ -91,13 +98,14 @@ import java.util.Optional;
      * @param id ID del curso a eliminar
      * @return ResponseEntity con el resultado de la operación
      */
+    @Operation(summary = &quot;Eliminar un curso&quot;, description = &quot;Elimina un curso existente basado en su ID&quot;)
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; eliminarCurso(@PathVariable(&quot;id&quot;) Long id) {
         try {
-<span class="nc" id="L97">            cursoService.eliminarCurso(id);</span>
-<span class="nc" id="L98">            return ResponseEntity.noContent().build();</span>
-<span class="nc" id="L99">        } catch (RuntimeException e) {</span>
-<span class="nc" id="L100">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L105">            cursoService.eliminarCurso(id);</span>
+<span class="nc" id="L106">            return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L107">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L108">            return ResponseEntity.notFound().build();</span>
         }
     }
 }

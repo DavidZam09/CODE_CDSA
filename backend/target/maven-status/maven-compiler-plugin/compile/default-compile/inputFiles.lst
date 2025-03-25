@@ -15,6 +15,7 @@ D:\PROOF CODESA\backend\src\main\java\com\proof\service\EstudianteService.java
 D:\PROOF CODESA\backend\src\main\java\com\proof\service\InscripcionService.java
 D:\PROOF CODESA\backend\src\main\java\com\proof\controller\InscripcionController.java
 D:\PROOF CODESA\backend\src\main\java\com\proof\model\Persona.java
+D:\PROOF CODESA\backend\src\main\java\com\proof\config\SwaggerConfig.java
 D:\PROOF CODESA\backend\src\main\java\com\proof\exception\GlobalExceptionHandler.java
 D:\PROOF CODESA\backend\src\main\java\com\proof\model\Administrativo.java
 D:\PROOF CODESA\backend\src\main\java\com\proof\exception\RecursoNoEncontradoException.java

@@ -2,6 +2,7 @@
 
 import java.time.LocalDate;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,24 +12,29 @@ import lombok.*;
  * @autor David Orlando Velez Zamora
  */
 @Getter
-<span class="pc" id="L14">@Setter</span>
-<span class="nc" id="L15">@NoArgsConstructor</span>
-<span class="fc" id="L16">@AllArgsConstructor</span>
+<span class="pc" id="L15">@Setter</span>
+<span class="nc" id="L16">@NoArgsConstructor</span>
+<span class="fc" id="L17">@AllArgsConstructor</span>
 @Entity
+@Schema(description = &quot;Clase que representa a una inscripción de un estudiante a un curso&quot;)
 public class Inscripcion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L22">    private Long id_inscripcion;</span>
+    @Schema(description = &quot;Identificador de la inscripción&quot;, example = &quot;1&quot;)
+<span class="fc" id="L25">    private Long id_inscripcion;</span>
 
     @Column(nullable = false)
-<span class="fc" id="L25">    private Long id_estudiante;</span>
+    @Schema(description = &quot;Identificador del estudiante&quot;, example = &quot;1&quot;)
+<span class="fc" id="L29">    private Long id_estudiante;</span>
 
     @Column(nullable = false)
-<span class="fc" id="L28">    private Long id_curso;</span>
+    @Schema(description = &quot;Identificador del curso&quot;, example = &quot;1&quot;)
+<span class="fc" id="L33">    private Long id_curso;</span>
 
     @Column(nullable = false)
-<span class="fc" id="L31">    private LocalDate fecha_inscripcion;</span>
+    @Schema(description = &quot;Fecha de inscripción&quot;, example = &quot;2021-10-01&quot;)
+<span class="fc" id="L37">    private LocalDate fecha_inscripcion;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

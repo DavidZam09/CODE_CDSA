@@ -2,6 +2,8 @@ package com.proof.controller;
 
 import com.proof.model.Estudiante;
 import com.proof.service.EstudianteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.Optional;
  * @autor David Orlando Velez Zamora
  */
 
+@Tag(name = "Estudiantes", description = "API para la gestión de estudiantes")
 @RestController
 @RequestMapping("/api/v1/estudiantes")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,6 +33,7 @@ public class EstudianteController {
      * 
      * @return ResponseEntity con la lista de estudiantes
      */
+    @Operation(summary = "Listar todos los estudiantes", description = "Obtiene una lista de todos los estudiantes registrados")
     @GetMapping
     public ResponseEntity<?> listarEstudiantes() {
         List<Estudiante> estudiantes = estudianteService.listarEstudiantes();
@@ -46,6 +50,7 @@ public class EstudianteController {
      * @param id ID del estudiante a obtener
      * @return ResponseEntity con el estudiante obtenido
      */
+    @Operation(summary = "Obtener un estudiante por ID", description = "Obtiene un estudiante específico mediante su ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerEstudiantePorId(@PathVariable("id") Long id) {
         Optional<Estudiante> estudiante = estudianteService.obtenerEstudiantePorId(id);
@@ -62,6 +67,7 @@ public class EstudianteController {
      * @param estudiante Estudiante a guardar
      * @return ResponseEntity con el estudiante guardado
      */
+    @Operation(summary = "Guardar un nuevo estudiante", description = "Crea un nuevo estudiante con los datos proporcionados")
     @PostMapping
     public ResponseEntity<Estudiante> guardarEstudiante(@RequestBody Estudiante estudiante) {
         Estudiante savedEstudiante = estudianteService.guardarEstudiante(estudiante);
@@ -75,6 +81,7 @@ public class EstudianteController {
      * @param estudiante Estudiante con los datos actualizados
      * @return ResponseEntity con el estudiante actualizado
      */
+    @Operation(summary = "Actualizar un estudiante existente", description = "Actualiza los datos de un estudiante existente mediante su ID")
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarEstudiante(@PathVariable("id") Long id,
             @RequestBody Estudiante estudiante) {
@@ -92,6 +99,7 @@ public class EstudianteController {
      * @param id ID del estudiante a eliminar
      * @return ResponseEntity con el resultado de la eliminación
      */
+    @Operation(summary = "Eliminar un estudiante", description = "Elimina un estudiante específico mediante su ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarEstudiante(@PathVariable("id") Long id) {
         boolean isRemoved = estudianteService.eliminarEstudiante(id);

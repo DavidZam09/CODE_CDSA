@@ -2,6 +2,8 @@
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,9 +23,9 @@ import java.time.LocalDate;
  */
 // Se usa si quieres herencia en la base de datos
 @Getter
-<span class="pc" id="L24">@Setter</span>
-<span class="fc" id="L25">@NoArgsConstructor</span>
-<span class="nc" id="L26">@AllArgsConstructor</span>
+<span class="pc" id="L26">@Setter</span>
+<span class="fc" id="L27">@NoArgsConstructor</span>
+<span class="nc" id="L28">@AllArgsConstructor</span>
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // Se usa si quieres herencia en la base de datos
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = &quot;type&quot;)
@@ -32,26 +34,34 @@ import java.time.LocalDate;
         @JsonSubTypes.Type(value = Profesor.class, name = &quot;profesor&quot;),
         @JsonSubTypes.Type(value = Administrativo.class, name = &quot;administrativo&quot;)
 })
+@Schema(description = &quot;Clase que representa a una persona de la institución educativa&quot;)
+// Se usa si quieres herencia en la base de datos
 public abstract class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="fc" id="L38">    private Long id_Persona;</span>
+    @Schema(description = &quot;Identificador de la persona&quot;, example = &quot;1&quot;)
+<span class="fc" id="L43">    private Long id_Persona;</span>
 
     @NotBlank(message = &quot;El nombre no puede estar vacío&quot;)
-<span class="fc" id="L41">    private String nombre;</span>
+    @Schema(description = &quot;Nombre de la persona&quot;, example = &quot;David&quot;)
+<span class="fc" id="L47">    private String nombre;</span>
 
     @NotBlank(message = &quot;El apellido no puede estar vacío&quot;)
-<span class="nc" id="L44">    private String apellido;</span>
+    @Schema(description = &quot;Apellido de la persona&quot;, example = &quot;Velez&quot;)
+<span class="nc" id="L51">    private String apellido;</span>
 
     @NotNull(message = &quot;La fecha de nacimiento no puede estar vacío&quot;)
-<span class="nc" id="L47">    private LocalDate fechaNacimiento;</span>
+    @Schema(description = &quot;Fecha de nacimiento de la persona&quot;, example = &quot;2000-01-01&quot;)
+<span class="nc" id="L55">    private LocalDate fechaNacimiento;</span>
 
     @Email(message = &quot;El email debe ser válido&quot;)
     @NotBlank(message = &quot;El email no puede estar vacío&quot;)
-<span class="nc" id="L51">    private String email;</span>
+    @Schema(description = &quot;Correo electrónico de la persona&quot;, example = &quot;email@email.com&quot;)
+<span class="nc" id="L60">    private String email;</span>
 
     @NotBlank(message = &quot;El teléfono no puede estar vacío&quot;)
     @Pattern(regexp = &quot;^[0-9]{10}$&quot;, message = &quot;El teléfono debe contener exactamente 10 dígitos numéricos&quot;)
-<span class="nc" id="L55">    private String telefono;</span>
+    @Schema(description = &quot;Teléfono de la persona&quot;, example = &quot;1234567890&quot;)
+<span class="nc" id="L65">    private String telefono;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

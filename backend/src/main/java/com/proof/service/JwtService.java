@@ -13,12 +13,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Servicio de JWT (Json Web Token)
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = "JWT Service", description = "Servicio para la gestión de tokens JWT")
 @Service
 public class JwtService {
 
@@ -30,6 +33,7 @@ public class JwtService {
      * @param user
      * @return
      */
+    @Operation(summary = "Generar un token JWT", description = "Genera un token JWT para un usuario dado.")
     public String getToken(UserDetails user) {
         return getToken(new HashMap<>(), user);
     }
@@ -68,6 +72,7 @@ public class JwtService {
      * @param token
      * @return Nombre de usuario
      */
+    @Operation(summary = "Obtener el nombre de usuario desde el token", description = "Extrae el nombre de usuario contenido en el token JWT.")
     public String getUsernameFromToken(String token) {
         return getClaim(token, Claims::getSubject);
     }
@@ -79,6 +84,7 @@ public class JwtService {
      * @param userDetails
      * @return true si el token es válido, false en caso contrario
      */
+    @Operation(summary = "Verificar si el token es válido", description = "Valida si el token JWT corresponde al usuario y no ha expirado.")
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
@@ -106,6 +112,7 @@ public class JwtService {
      * @param claimsResolver
      * @return Claim específica
      */
+    @Operation(summary = "Obtener una reclamación específica del token", description = "Obtiene un valor específico de las reclamaciones del token JWT.")
     public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaims(token);
         return claimsResolver.apply(claims);
@@ -127,7 +134,7 @@ public class JwtService {
      * @param token
      * @return true si el token ha expirado, false en caso contrario
      */
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return getExpiration(token).before(new Date());
     }
 }

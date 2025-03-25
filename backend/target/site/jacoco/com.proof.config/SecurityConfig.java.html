@@ -41,13 +41,17 @@ public class SecurityConfig {
 <span class="nc" id="L41">                                .csrf(csrf -&gt; csrf</span>
 <span class="nc" id="L42">                                                .disable())</span>
 <span class="nc" id="L43">                                .authorizeHttpRequests(authRequest -&gt; authRequest</span>
-<span class="nc" id="L44">                                                .requestMatchers(&quot;/auth/**&quot;).permitAll()</span>
-<span class="nc" id="L45">                                                .anyRequest().authenticated())</span>
-<span class="nc" id="L46">                                .sessionManagement(sessionManager -&gt; sessionManager</span>
-<span class="nc" id="L47">                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))</span>
-<span class="nc" id="L48">                                .authenticationProvider(authProvider)</span>
-<span class="nc" id="L49">                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)</span>
-<span class="nc" id="L50">                                .build();</span>
+<span class="nc" id="L44">                                                .requestMatchers(&quot;/auth/**&quot;,</span>
+                                                                &quot;/swagger-ui/**&quot;,
+                                                                &quot;/v3/api-docs/**&quot;,
+                                                                &quot;/swagger-ui.html&quot;)
+<span class="nc" id="L48">                                                .permitAll()</span>
+<span class="nc" id="L49">                                                .anyRequest().authenticated())</span>
+<span class="nc" id="L50">                                .sessionManagement(sessionManager -&gt; sessionManager</span>
+<span class="nc" id="L51">                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))</span>
+<span class="nc" id="L52">                                .authenticationProvider(authProvider)</span>
+<span class="nc" id="L53">                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)</span>
+<span class="nc" id="L54">                                .build();</span>
 
         }
 

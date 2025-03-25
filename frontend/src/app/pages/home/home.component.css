@@ -1,0 +1,95 @@
+.dashboard {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+header {
+    background-color: #3a5775;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.stats,
+.recent-activity {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.stats h2,
+.recent-activity h2 {
+    color: #333;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+}
+
+footer .cta-button {
+    background-color: #3a5775;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+footer .cta-button:hover {
+    background-color: #2a3f54;
+}
+
+.courses,
+.students,
+.teachers {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.courses h2,
+.students h2,
+.teachers h2 {
+    color: #3a5775;
+}
+
+.courses ul,
+.students ul,
+.teachers ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.courses li,
+.students li,
+.teachers li {
+    margin: 5px 0;
+}
+
+.courses ul li, .students ul li, .teachers ul li {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.manage-button {
+    background-color: #3a5775;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.manage-button:hover {
+    background-color: #2a3f54;
+}

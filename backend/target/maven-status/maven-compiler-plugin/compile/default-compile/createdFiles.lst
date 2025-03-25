@@ -29,6 +29,7 @@ com\proof\model\Inscripcion.class
 com\proof\service\AdministrativoService.class
 com\proof\controller\AdministrativoController.class
 com\proof\service\JwtService.class
+com\proof\config\SwaggerConfig.class
 com\proof\repository\InscripcionRepository.class
 com\proof\service\EstudianteService.class
 com\proof\dto\AuthResponse.class

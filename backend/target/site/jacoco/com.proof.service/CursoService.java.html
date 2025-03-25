@@ -2,6 +2,8 @@
 
 import com.proof.model.Curso;
 import com.proof.repository.CursoRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,9 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;CursoService&quot;, description = &quot;Servicio para la gestión de cursos&quot;)
 @Service
-<span class="nc" id="L17">public class CursoService {</span>
+<span class="nc" id="L20">public class CursoService {</span>
 
     @Autowired
     private CursoRepository cursoRepository;
@@ -24,8 +27,9 @@ import java.util.Optional;
      * 
      * @return Lista de cursos
      */
+    @Operation(summary = &quot;Listar todos los cursos&quot;, description = &quot;Obtiene una lista de todos los cursos disponibles&quot;)
     public List&lt;Curso&gt; listarCursos() {
-<span class="nc" id="L28">        return cursoRepository.findAll();</span>
+<span class="nc" id="L32">        return cursoRepository.findAll();</span>
     }
 
     /**
@@ -34,8 +38,9 @@ import java.util.Optional;
      * @param id ID del curso a obtener
      * @return Curso
      */
+    @Operation(summary = &quot;Obtener un curso por ID&quot;, description = &quot;Obtiene los detalles de un curso específico por su ID&quot;)
     public Optional&lt;Curso&gt; obtenerCursoPorId(Long id) {
-<span class="nc" id="L38">        return cursoRepository.findById(id);</span>
+<span class="nc" id="L43">        return cursoRepository.findById(id);</span>
     }
 
     /**
@@ -44,8 +49,9 @@ import java.util.Optional;
      * @param curso Curso a guardar
      * @return Curso
      */
+    @Operation(summary = &quot;Guardar un curso&quot;, description = &quot;Guarda un nuevo curso en el sistema&quot;)
     public Curso guardarCurso(Curso curso) {
-<span class="nc" id="L48">        return cursoRepository.save(curso);</span>
+<span class="nc" id="L54">        return cursoRepository.save(curso);</span>
     }
 
     /**
@@ -55,15 +61,16 @@ import java.util.Optional;
      * @param cursoActualizado Curso actualizado
      * @return Curso
      */
+    @Operation(summary = &quot;Actualizar un curso&quot;, description = &quot;Actualiza los detalles de un curso existente por su ID&quot;)
     public Curso actualizarCurso(Long id, Curso cursoActualizado) {
-<span class="nc" id="L59">        return cursoRepository.findById(id)</span>
-<span class="nc" id="L60">                .map(curso -&gt; {</span>
-<span class="nc" id="L61">                    curso.setNombre(cursoActualizado.getNombre());</span>
-<span class="nc" id="L62">                    curso.setDescripcion(cursoActualizado.getDescripcion());</span>
-<span class="nc" id="L63">                    curso.setCreditos(cursoActualizado.getCreditos());</span>
-<span class="nc" id="L64">                    curso.setIdProfesor(cursoActualizado.getIdProfesor());</span>
-<span class="nc" id="L65">                    return cursoRepository.save(curso);</span>
-<span class="nc" id="L66">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Curso no encontrado con ID: &quot; + id));</span>
+<span class="nc" id="L66">        return cursoRepository.findById(id)</span>
+<span class="nc" id="L67">                .map(curso -&gt; {</span>
+<span class="nc" id="L68">                    curso.setNombre(cursoActualizado.getNombre());</span>
+<span class="nc" id="L69">                    curso.setDescripcion(cursoActualizado.getDescripcion());</span>
+<span class="nc" id="L70">                    curso.setCreditos(cursoActualizado.getCreditos());</span>
+<span class="nc" id="L71">                    curso.setIdProfesor(cursoActualizado.getIdProfesor());</span>
+<span class="nc" id="L72">                    return cursoRepository.save(curso);</span>
+<span class="nc" id="L73">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Curso no encontrado con ID: &quot; + id));</span>
     }
 
     /**
@@ -71,11 +78,12 @@ import java.util.Optional;
      * 
      * @param id ID del curso a eliminar
      */
+    @Operation(summary = &quot;Eliminar un curso&quot;, description = &quot;Elimina un curso existente por su ID&quot;)
     public void eliminarCurso(Long id) {
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (!cursoRepository.existsById(id)) {</span>
-<span class="nc" id="L76">            throw new RuntimeException(&quot;Curso no encontrado con ID: &quot; + id);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (!cursoRepository.existsById(id)) {</span>
+<span class="nc" id="L84">            throw new RuntimeException(&quot;Curso no encontrado con ID: &quot; + id);</span>
         }
-<span class="nc" id="L78">        cursoRepository.deleteById(id);</span>
-<span class="nc" id="L79">    }</span>
+<span class="nc" id="L86">        cursoRepository.deleteById(id);</span>
+<span class="nc" id="L87">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -12,10 +12,7 @@ export class TokenService {
   }
 
   getToken(): string | null {
-    if (!this.token) {
-      this.token = localStorage.getItem('token');
-    }
-    return this.token;
+    return localStorage.getItem('token');
   }
 
   clearToken(): void {

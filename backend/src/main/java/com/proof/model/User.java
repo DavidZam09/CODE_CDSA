@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,19 +33,33 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
+@Schema(description = "Clase que representa a un usuario del sistema")
 public class User implements UserDetails {
     @Id
     @GeneratedValue
+    @Schema(description = "Identificador único del usuario", example = "1")
     Integer id;
+
     @Basic
     @Column(nullable = false)
+    @Schema(description = "Nombre de usuario único", example = "johndoe")
     String username;
+
     @Column(nullable = false)
+    @Schema(description = "Apellido del usuario", example = "Doe")
     String lastname;
+
+    @Schema(description = "Nombre del usuario", example = "John")
     String firstname;
+
+    @Schema(description = "País del usuario", example = "Colombia")
     String country;
+
+    @Schema(description = "Contraseña del usuario", example = "password123")
     String password;
+    
     @Enumerated(EnumType.STRING)
+    @Schema(description = "Rol del usuario en el sistema", example = "ADMIN")
     Role role;
 
     @Override

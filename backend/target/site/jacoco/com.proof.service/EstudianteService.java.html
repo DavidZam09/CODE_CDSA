@@ -3,6 +3,8 @@
 import com.proof.model.Estudiante;
 import com.proof.service.EstudianteService;
 import com.proof.repository.EstudianteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,9 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = &quot;EstudianteService&quot;, description = &quot;Servicio para la gestión de estudiantes&quot;)
 @Service
-<span class="nc" id="L18">public class EstudianteService {</span>
+<span class="nc" id="L21">public class EstudianteService {</span>
 
     @Autowired
     private EstudianteRepository estudianteRepository;
@@ -25,8 +28,9 @@ import java.util.Optional;
      * 
      * @return Lista de estudiantes
      */
+    @Operation(summary = &quot;Listar todos los estudiantes&quot;, description = &quot;Obtiene una lista de todos los estudiantes registrados&quot;)
     public List&lt;Estudiante&gt; listarEstudiantes() {
-<span class="nc" id="L29">        return estudianteRepository.findAll();</span>
+<span class="nc" id="L33">        return estudianteRepository.findAll();</span>
     }
 
     /**
@@ -35,8 +39,9 @@ import java.util.Optional;
      * @param id ID del estudiante a obtener
      * @return Estudiante
      */
+    @Operation(summary = &quot;Obtener un estudiante por ID&quot;, description = &quot;Obtiene un estudiante específico mediante su ID&quot;)
     public Optional&lt;Estudiante&gt; obtenerEstudiantePorId(Long id) {
-<span class="nc" id="L39">        return estudianteRepository.findById(id);</span>
+<span class="nc" id="L44">        return estudianteRepository.findById(id);</span>
     }
 
     /**
@@ -45,8 +50,9 @@ import java.util.Optional;
      * @param estudiante Estudiante a guardar
      * @return Estudiante
      */
+    @Operation(summary = &quot;Guardar un estudiante&quot;, description = &quot;Guarda un nuevo estudiante en el sistema&quot;)
     public Estudiante guardarEstudiante(Estudiante estudiante) {
-<span class="nc" id="L49">        return estudianteRepository.save(estudiante);</span>
+<span class="nc" id="L55">        return estudianteRepository.save(estudiante);</span>
     }
 
     /**
@@ -56,13 +62,14 @@ import java.util.Optional;
      * @param estudianteActualizado Estudiante actualizado
      * @return Estudiante
      */
+    @Operation(summary = &quot;Actualizar un estudiante&quot;, description = &quot;Actualiza los datos de un estudiante existente&quot;)
     public Estudiante actualizarEstudiante(Long id, Estudiante estudianteActualizado) {
-<span class="nc" id="L60">        return estudianteRepository.findById(id)</span>
-<span class="nc" id="L61">                .map(estudiante -&gt; {</span>
-<span class="nc" id="L62">                    estudiante.setNumeroMatricula(estudianteActualizado.getNumeroMatricula());</span>
-<span class="nc" id="L63">                    estudiante.setGrado(estudianteActualizado.getGrado());</span>
-<span class="nc" id="L64">                    return estudianteRepository.save(estudiante);</span>
-<span class="nc" id="L65">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Estudiante no encontrado con ID: &quot; + id));</span>
+<span class="nc" id="L67">        return estudianteRepository.findById(id)</span>
+<span class="nc" id="L68">                .map(estudiante -&gt; {</span>
+<span class="nc" id="L69">                    estudiante.setNumeroMatricula(estudianteActualizado.getNumeroMatricula());</span>
+<span class="nc" id="L70">                    estudiante.setGrado(estudianteActualizado.getGrado());</span>
+<span class="nc" id="L71">                    return estudianteRepository.save(estudiante);</span>
+<span class="nc" id="L72">                }).orElseThrow(() -&gt; new RuntimeException(&quot;Estudiante no encontrado con ID: &quot; + id));</span>
     }
 
     /**
@@ -71,12 +78,13 @@ import java.util.Optional;
      * @param id ID del estudiante a eliminar
      * @return boolean
      */
+    @Operation(summary = &quot;Eliminar un estudiante&quot;, description = &quot;Elimina un estudiante del sistema mediante su ID&quot;)
     public boolean eliminarEstudiante(Long id) {
-<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (estudianteRepository.existsById(id)) {</span>
-<span class="nc" id="L76">            estudianteRepository.deleteById(id);</span>
-<span class="nc" id="L77">            return true;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (estudianteRepository.existsById(id)) {</span>
+<span class="nc" id="L84">            estudianteRepository.deleteById(id);</span>
+<span class="nc" id="L85">            return true;</span>
         } else {
-<span class="nc" id="L79">            return false;</span>
+<span class="nc" id="L87">            return false;</span>
         }
     }
 

@@ -2,6 +2,8 @@ package com.proof.controller;
 
 import com.proof.model.Curso;
 import com.proof.service.CursoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.Optional;
  * 
  * @autor David Orlando Velez Zamora
  */
+@Tag(name = "Cursos", description = "API para la gestión de cursos")
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/cursos")
@@ -29,6 +32,7 @@ public class CursoController {
      * 
      * @return ResponseEntity con la lista de cursos
      */
+    @Operation(summary = "Listar todos los cursos", description = "Obtiene una lista de todos los cursos disponibles")
     @GetMapping
     public ResponseEntity<?> listarCursos() {
         List<Curso> cursos = cursoService.listarCursos();
@@ -45,6 +49,7 @@ public class CursoController {
      * @param id ID del curso a obtener
      * @return ResponseEntity con el curso obtenido
      */
+    @Operation(summary = "Obtener un curso por ID", description = "Obtiene un curso específico basado en su ID")
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerCursoPorId(@PathVariable("id") Long id) {
         Optional<Curso> curso = cursoService.obtenerCursoPorId(id);
@@ -62,6 +67,7 @@ public class CursoController {
      * 
      * @return ResponseEntity con el curso creado
      */
+    @Operation(summary = "Crear un nuevo curso", description = "Crea un nuevo curso con la información proporcionada")
     @PostMapping
     public ResponseEntity<Curso> crearCurso(@RequestBody Curso curso) {
         Curso nuevoCurso = cursoService.guardarCurso(curso);
@@ -75,6 +81,7 @@ public class CursoController {
      * @param curso Curso con los datos actualizados
      * @return ResponseEntity con el curso actualizado
      */
+    @Operation(summary = "Actualizar un curso", description = "Actualiza un curso existente basado en su ID")
     @PutMapping("/{id}")
     public ResponseEntity<Curso> actualizarCurso(@PathVariable("id") Long id, @RequestBody Curso curso) {
         try {
@@ -91,6 +98,7 @@ public class CursoController {
      * @param id ID del curso a eliminar
      * @return ResponseEntity con el resultado de la operación
      */
+    @Operation(summary = "Eliminar un curso", description = "Elimina un curso existente basado en su ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCurso(@PathVariable("id") Long id) {
         try {
